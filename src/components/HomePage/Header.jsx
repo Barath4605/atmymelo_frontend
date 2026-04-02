@@ -1,18 +1,48 @@
 import React from 'react';
-import "../../index.css"
-import { loggedIn, username, logout } from "../../auth.js"
+import "../../app.css"
+import { isLoggedIn, getUsername } from "../../auth.js"
+import {useNavigate} from "react-router-dom";
 
 const Header = () => {
+
+    const nav = useNavigate();
+
   return (
-      <header className=" w-[75%] text-center lg:text-left mx-auto pt-30 cinzel-400">
+      <>
+          {!isLoggedIn() ? (
+              <header className=" w-[75%] text-center lg:text-left mx-auto pt-20 cinzel-400">
 
-        <h1 className="lg:text-8xl text-6xl
-        lg:tracking-[-10px] tracking-[-1px] text-white font-light">
-          At My Melo
-        </h1>
-        <p className="tracking-wide text-white text-md lg:text-lg">Your personalized Music Diary</p>
+                  <h1 className="lg:text-8xl text-5xl
+                                lg:tracking-[-10px] tracking-[-1px] text-white font-light">
+                      At My Melo
+                  </h1>
+                  <p className="tracking-wide text-white text-md lg:text-lg">Your personalized Music Diary</p>
 
-      </header>
+              </header>
+          ) :
+              (
+                  <header className=" lg:w-[75%] w-[90%] text-center lg:text-left mx-auto lg:pt-10 pt-15">
+                      <h1 className="lg:text-5xl lg:p-5 text-center text-3xl text-white font-light montserrat-200">
+                          WELCOME,
+                          <span >
+                                <button
+                                    className="lg:border-b-white/70 cursor-pointer pb-1
+                                                hover:border-b-white lg:text-white/75 lg:hover:text-white
+                                                lg:border-b border-b border-white/80 ml-4"
+                                    onClick={() => nav("/profile")}>
+                                    {getUsername()}
+                                </button>
+                          </span>
+                      </h1>
+                      <div className="mt-20 cinzel-400 text-white">
+                          <h1 className="text-5xl lg:text-6xl tracking-tighter">At My Melo</h1>
+                          <p className="tracking-wide lg:mt-0 text-md lg:text-lg">Your personalized Music Diary</p>
+                      </div>
+
+                  </header>
+              )
+          }
+      </>
   );
 };
 

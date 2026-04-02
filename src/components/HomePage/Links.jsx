@@ -13,9 +13,9 @@ const links = [
         desc: "Lookup your favorite artists",
     },
     {
-        name: "My Profile",
+        name: "Favorites",
         path: "/profile",
-        desc: "Visit your profile",
+        desc: "Take a look at all your favorite tracks and albums",
     },
     {
         name: "On Deck",
@@ -31,19 +31,17 @@ const links = [
 
 const HomeLinks = () => {
     return (
-        <nav className="w-[75%] mx-auto mt-20 flex flex-col gap-4 montserrat  font-light">
+        <nav className="w-[75%] mx-auto mt-10 flex flex-col gap-4 montserrat  font-light">
             {links.map((link) => (
                 <a
                     key={link.name}
                     href={link.path}
                     className="relative lg:mb-2 group text-[33px] lg:w-[40%] w-[60%] leading-tight text-white"
                 >
-                    {/* main label */}
                     <span className="transition">
                         {link.name}
                     </span>
 
-                    {/* description (comes from bottom now) */}
                     <span
                         className="
                                   absolute left-0 top-full translate-y-[-25%]

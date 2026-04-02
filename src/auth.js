@@ -9,4 +9,5 @@ export function getUsername() {
 export function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    window.location.reload();
 }

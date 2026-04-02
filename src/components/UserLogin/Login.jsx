@@ -107,7 +107,7 @@ const Login = () => {
                         type="submit"
                         disabled={loading}
                         className="bg-white w-[80%] mx-auto text-black py-2 rounded-full
-                        font-medium text-[13px] hover:w-[83%] ease-in-out duration-500
+                        font-bold text-[13px] hover:w-[83%] ease-in-out duration-500
                         transition-all cursor-pointer poppins-thin tracking-widest disabled:opacity-50"
                     >
                         {loading ? "LOGGING IN..." : "LOGIN"}
