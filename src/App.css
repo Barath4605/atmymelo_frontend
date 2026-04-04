@@ -189,26 +189,26 @@
 
 @keyframes floatSlow {
     0%, 100% {
-        transform: translate(10px, 40px) scale(1);
+        transform: translate(200px, 600px) scale(1);
     }
     50% {
-        transform: translate(120px, -300px) scale(1.2);
+        transform: translate(300px, 500px) scale(1.3);
     }
 }
 
 @keyframes floatSlowReverse {
     0%, 100% {
-        transform: translate(10px, 5px) scale(1.2);
+        transform: translate(200px, 700px) scale(1.2);
     }
     50% {
-        transform: translate(-120px, 140px) scale(0.95);
+        transform: translate(200px, 300px) scale(0.9);
     }
 }
 
 .floatSlow {
-    animation: floatSlow 12s ease-in-out infinite;
+    animation: floatSlow 20s ease-in-out infinite;
 }
 
 .floatSlowReverse {
-    animation: floatSlowReverse 16s ease-in-out infinite;
+    animation: floatSlowReverse 20s ease-in-out infinite;
 }

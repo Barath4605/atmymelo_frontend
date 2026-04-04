@@ -207,9 +207,9 @@
 }
 
 .floatSlow {
-    animation: floatSlow 12s ease-in-out infinite;
+    animation: floatSlow 20s ease-in-out infinite;
 }
 
 .floatSlowReverse {
-    animation: floatSlowReverse 16s ease-in-out infinite;
+    animation: floatSlowReverse 20s ease-in-out infinite;
 }

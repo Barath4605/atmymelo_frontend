@@ -69,14 +69,14 @@ const Register = () => {
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center">
 
             {/* BACKGROUND */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-red-500 via-red-600/80 to-red-400">
+            <div className="absolute inset-0 -z-10 bg-red-400">
 
                 <div className="absolute floatSlow w-[500px] h-[500px] bg-pink-500 rounded-full blur-[120px] top-[-100px] left-[-100px]" />
 
-                <div className="absolute floatSlowReverse w-[500px] h-[500px] bg-purple-700 rounded-full blur-[120px] top-[100px] right-[-150px]" />
+                <div className="absolute floatSlowReverse w-[500px] h-[500px] bg-linear-to-br from-purple-700 via-white to-purple-900 rounded-full blur-[120px] top-[100px] right-[-150px]" />
 
                 <div
-                    className="absolute floatSlow w-[400px] h-[400px] bg-orange-300 rounded-full blur-[150px] top-[50px] left-[200px]"
+                    className="absolute floatSlow w-[400px] h-[400px] bg-linear-to-br from-orange-500 via-orange-500 to-orange-400 rounded-full blur-[150px] top-[50px] left-[200px]"
                     style={{ animationDuration: "18s" }}
                 />
             </div>

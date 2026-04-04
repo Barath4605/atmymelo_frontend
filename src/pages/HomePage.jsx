@@ -10,9 +10,11 @@ const HomePage = () => {
             style={{backgroundImage: `url(${bg})`,}}
             className="min-h-screen w-full bg-cover bg-center bg-no-repeat">
 
-            <Header />
-            <HomeLinks></HomeLinks>
-            <SignUpBtn></SignUpBtn>
+            <div className="flex flex-col min-h-screen m-auto items-center justify-center">
+                <Header />
+                <HomeLinks></HomeLinks>
+                <SignUpBtn></SignUpBtn>
+            </div>
         </main>
     );
 };

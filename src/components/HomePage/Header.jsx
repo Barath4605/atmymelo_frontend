@@ -10,7 +10,7 @@ const Header = () => {
   return (
       <>
           {!isLoggedIn() ? (
-              <header className=" w-[75%] text-center lg:text-left mx-auto pt-20 cinzel-400">
+              <header className=" w-[75%] text-center lg:text-left mx-auto cinzel-400 ">
 
                   <h1 className="lg:text-8xl text-5xl
                                 lg:tracking-[-10px] tracking-[-1px] text-white font-light">
@@ -21,8 +21,8 @@ const Header = () => {
               </header>
           ) :
               (
-                  <header className=" lg:w-[75%] w-[90%] text-center lg:text-left mx-auto lg:pt-10 pt-15">
-                      <h1 className="lg:text-5xl lg:p-5 text-center text-3xl text-white font-light montserrat-200">
+                  <header className=" lg:w-[75%] w-[90%] text-center lg:text-left mx-auto">
+                      <h1 className="lg:text-4xl lg:p-1 text-center text-3xl text-white font-light montserrat-200">
                           WELCOME,
                           <span >
                                 <button
@@ -36,7 +36,7 @@ const Header = () => {
                       </h1>
                       <div className="mt-20 cinzel-400 text-white">
                           <h1 className="text-5xl lg:text-6xl tracking-tighter">At My Melo</h1>
-                          <p className="tracking-wide lg:mt-0 text-md lg:text-lg">Your personalized Music Diary</p>
+                          <p className="tracking-wide lg:mt-0 text-md">Your personalized Music Diary</p>
                       </div>
 
                   </header>

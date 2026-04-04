@@ -1,5 +1,6 @@
 import React from "react";
-import "../../index.css"
+import "../../app.css"
+import {useNavigate} from "react-router-dom";
 
 const links = [
     {
@@ -30,17 +31,15 @@ const links = [
 ];
 
 const HomeLinks = () => {
+    const nav = useNavigate();
     return (
-        <nav className="w-[75%] mx-auto mt-10 flex flex-col gap-4 montserrat  font-light">
+        <nav className="w-[75%] mx-auto mt-10 flex flex-col gap-4 montserrat-200 font-light">
             {links.map((link) => (
-                <a
+                <button
                     key={link.name}
-                    href={link.path}
-                    className="relative lg:mb-2 group text-[33px] lg:w-[40%] w-[60%] leading-tight text-white"
-                >
-                    <span className="transition">
-                        {link.name}
-                    </span>
+                    onClick={() => nav(link.path)}
+                    className="relative lg:mb-2 text-start cursor-pointer group text-[28px] lg:w-[40%] w-[60%] leading-tight text-white"
+                >{link.name}
 
                     <span
                         className="
@@ -57,13 +56,14 @@ const HomeLinks = () => {
                                   max-sm:opacity-100
                                   max-sm:block
                                   max-sm:text-sm
-                                  max-sm:text-white/90
+                                  text-white/80
+                                  max-sm:text-white
                                   max-sm:-mt-1
                                 "
                     >
             {link.desc}
           </span>
-                </a>
+                </button>
             ))}
         </nav>
     );
