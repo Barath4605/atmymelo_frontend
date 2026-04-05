@@ -8,8 +8,9 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                     <img
                         src={artistBackdrop}
                         alt="Artist backdrop"
-                        className="w-full h-auto block"
+                        className="w-full pointer-events-none h-auto block"
                         style={{ filter: "brightness(0.75) saturate(0.85)" }}
+                        draggable={false}
                     />
 
                     {/* Left fade */}

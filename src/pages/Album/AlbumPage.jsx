@@ -5,38 +5,25 @@ import AlbumBackdrop from "../../components/Album/AlbumBackdrop.jsx";
 import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
 
 const AlbumPage = () => {
-
     const { id } = useParams();
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const fetchAlbum = async () => {
             const toastId = toast.loading("Loading album...");
-
             try {
                 const token = localStorage.getItem("token");
-
                 const res = await fetch(`http://localhost:8080/api/albums/${id}`, {
-                    headers: {
-                        Authorization: "Bearer " + token
-                    }
+                    headers: { Authorization: "Bearer " + token },
                 });
-
                 const json = await res.json();
-
-                if (!res.ok) {
-                    toast.error("Failed to load album", { id: toastId });
-                    return;
-                }
-
+                if (!res.ok) { toast.error("Failed to load album", { id: toastId }); return; }
                 setData(json);
                 toast.success("Loaded", { id: toastId });
-
             } catch {
                 toast.error("Server error");
             }
         };
-
         fetchAlbum();
     }, [id]);
 
@@ -45,8 +32,10 @@ const AlbumPage = () => {
     const { album, rating, favorite, queue } = data;
 
     return (
-        <main className="bg-zinc-600 pb-10 min-h-screen">
-
+        <main
+            className="relative min-h-screen pb-16"
+            style={{ backgroundColor: "#0e0e0e" }}
+        >
             <AlbumBackdrop
                 backdrop={album.artist?.backdropUrl}
                 title={album.title}
@@ -59,13 +48,12 @@ const AlbumPage = () => {
                 year={album.releaseYear}
                 genre={album.genre}
                 description={album.description}
-
                 rating={rating}
                 favorite={favorite}
                 queue={queue}
+                artistId={album.artist.id}
+                albumId={id}
             />
-
-
         </main>
     );
 };

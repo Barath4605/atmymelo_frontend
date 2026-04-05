@@ -12,10 +12,12 @@ const Header = () => {
           {!isLoggedIn() ? (
               <header className=" w-[75%] text-center lg:text-left mx-auto cinzel-400 ">
 
-                  <h1 className="lg:text-8xl text-5xl
-                                lg:tracking-[-10px] tracking-[-1px] text-white font-light">
+                  {/*TITLE*/}
+                  <h1 className="lg:text-8xl text-5xl lg:tracking-[-10px] tracking-[-1px] text-white font-light">
                       At My Melo
                   </h1>
+
+                  {/*SUBTITLE*/}
                   <p className="tracking-wide text-white text-md lg:text-lg">Your personalized Music Diary</p>
 
               </header>
