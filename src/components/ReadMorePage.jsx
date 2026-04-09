@@ -67,7 +67,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
                       className="ml-4 mt-1 flex-shrink-0 transition-opacity hover:opacity-100"
                       style={{ color: "rgba(255,255,255,0.35)" }}
                   >
-                    <X size={18} strokeWidth={1.5} />
+                    <X size={22} className="p-1 cursor-pointer hover:text-red-500" strokeWidth={1.5} />
                   </button>
                 </div>
 

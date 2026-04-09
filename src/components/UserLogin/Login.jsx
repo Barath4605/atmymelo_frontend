@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "../../index.css";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [form, setForm] = useState({
         email: "",
         password: "",
     });
+
+    const nav = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -49,12 +52,13 @@ const Login = () => {
             // TOKEN STORAGE
             localStorage.setItem("token", data.token);
             localStorage.setItem("username", data.username);
+            localStorage.setItem("name", data.name);
 
             setMessage("Login successful");
 
             window.location.href = "/";
 
-        } catch (err) {
+        } catch {
             setMessage("Server not Reachable");
         } finally {
             setLoading(false);
@@ -64,8 +68,7 @@ const Login = () => {
     return (
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center">
 
-            {/* BACKGROUND (slightly different hue) */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600 via-purple-700/80 to-indigo-500">
+            <div className="absolute inset-0 -z-10 bg-linear-to-br from-purple-600 via-purple-700/80 to-indigo-500">
 
                 <div className="absolute floatSlow w-[500px] h-[500px] bg-indigo-500 rounded-full blur-[120px] top-[-100px] left-[-100px]" />
 
@@ -106,9 +109,9 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-white w-[80%] mx-auto text-black py-2 rounded-full
+                        className="bg-white w-[80%] mx-auto text-gray-900 py-2 rounded-full
                         font-bold text-[13px] hover:w-[83%] ease-in-out duration-500
-                        transition-all cursor-pointer poppins-thin tracking-widest disabled:opacity-50"
+                        transition-all cursor-pointer poppins-semibold tracking-widest disabled:opacity-50"
                     >
                         {loading ? "LOGGING IN..." : "LOGIN"}
                     </button>
@@ -116,9 +119,19 @@ const Login = () => {
                 </form>
 
                 {message && (
-                    <p className="text-center text-sm opacity-80">
-                        {message}
-                    </p>
+                    <div className="justify-center space-x-2 text-sm">
+                        <p className="text-center opacity-80">
+                            {message}
+                        </p>
+                        <p className="text-center">
+                            New User?
+                            <button
+                                onClick={() => nav("/register")}
+                                className="pb-px border-b  ml-2">
+                                REGISTER
+                            </button>
+                        </p>
+                    </div>
                 )}
 
             </div>

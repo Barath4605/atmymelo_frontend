@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Montserrat:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Montserrat:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap');
 .cinzel-400 {
     font-family: "Cinzel", serif;
     font-optical-sizing: auto;
@@ -185,6 +184,13 @@
     font-style: italic;
 }
 
+.space-grotesk-300 {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* index.css */
 
 @keyframes floatSlow {
@@ -206,9 +212,9 @@
 }
 
 .floatSlow {
-    animation: floatSlow 20s ease-in-out infinite;
+    animation: floatSlow 12s ease-in-out infinite;
 }
 
 .floatSlowReverse {
-    animation: floatSlowReverse 20s ease-in-out infinite;
+    animation: floatSlowReverse 12s ease-in-out infinite;
 }

@@ -1,5 +1,10 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Montserrat:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Google+Sans:ital,opsz,wght,GRAD@0,17..18,400..700,-50;1,17..18,400..700,-50&family=Montserrat:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap');
+
+body {
+    background-color: #0e0d0d;
+}
+
 
 .cinzel-400 {
     font-family: "Cinzel", serif;
@@ -186,30 +191,55 @@
     font-style: italic;
 }
 
-/* index.css */
 
+.space-grotesk-300 {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* index.css */
 @keyframes floatSlow {
-    0%, 100% {
-        transform: translate(10px, 40px) scale(1);
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    25% {
+        transform: translate(40px, -60px) scale(1.05);
     }
     50% {
-        transform: translate(120px, -300px) scale(1.2);
+        transform: translate(80px, -20px) scale(1.1);
+    }
+    75% {
+        transform: translate(30px, 50px) scale(1.05);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
     }
 }
 
 @keyframes floatSlowReverse {
-    0%, 100% {
-        transform: translate(10px, 5px) scale(1.2);
+    0% {
+        transform: translate(0px, 0px) scale(1.1);
+    }
+    25% {
+        transform: translate(-50px, 40px) scale(1.05);
     }
     50% {
-        transform: translate(-120px, 140px) scale(0.95);
+        transform: translate(-90px, -30px) scale(0.95);
+    }
+    75% {
+        transform: translate(-40px, -80px) scale(1.05);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1.1);
     }
 }
 
 .floatSlow {
-    animation: floatSlow 20s ease-in-out infinite;
+    animation: floatSlow 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .floatSlowReverse {
-    animation: floatSlowReverse 20s ease-in-out infinite;
+    animation: floatSlowReverse 22s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

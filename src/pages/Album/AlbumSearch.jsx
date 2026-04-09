@@ -68,23 +68,61 @@ const AlbumSearch = () => {
                         <Search size={40} className="bg-white p-2 text-rose-400 cursor-pointer rounded-full" />
                     </button>
                 </form>
-                <div className="mt-6 grid lg:grid-cols-3 gap-4 text-white">
-                    {results.map((album) => (
+                <div className="mt-6 grid lg:grid-cols-3 gap-2">
+                    {results.map((album, i) => (
                         <div
                             onClick={() => window.location.href = `/albums/${album.id}`}
                             key={album.id}
-                            className="bg-linear-to-br from-red-800 via-red-800 to-red-900 p-5
-                                       transition-all ease-in-out duration-500
-                                       rounded-lg hover:scale-105 cursor-pointer backdrop-blur-md"
+                            className="group relative flex items-center gap-4 px-5 py-4 rounded-2xl cursor-pointer overflow-hidden transition-all duration-500"
+                            style={{
+                                background: "rgba(80,10,10,0.45)",
+                                backdropFilter: "blur(20px)",
+                                WebkitBackdropFilter: "blur(20px)",
+                                border: "1px solid rgba(255,100,100,0.15)",
+                                boxShadow: "0 2px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,150,150,0.1)",
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.background = "rgba(80,10,10,0.6)";
+                                e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,150,150,0.15)";
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.background = "rgba(80,10,10,0.45)";
+                                e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,150,150,0.1)";
+                            }}
                         >
-                            <h2 className="text-lg w-fit font-semibold cursor-pointer
-                                           ">
-                                 <span className="lg:hover:underline underline underline-offset-4 lg:hover:underline-offset-3">{album.title}</span>
-                                 <span className="text-xs no-underline hover:no-underline">  by</span>
-                            </h2>
-                            <p className="text-sm w-fit opacity-70 underline lg:no-underline cursor-pointer
-                                          lg:hover:underline underline-offset-4 lg:hover:underline-offset-3">{album.artist}</p>
-                            <p className="text-sm opacity-50">{album.year}</p>
+                            <div
+                                className="absolute inset-x-0 top-0 h-px pointer-events-none"
+                                style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent)" }}
+                            />
+
+                            <span
+                                className="montserrat-300 text-[11px] flex-shrink-0 w-4 text-center"
+                                style={{ color: "rgba(255,255,255,0.35)" }}>
+                                {i + 1}
+                            </span>
+
+                            <div className="flex flex-col min-w-0 flex-1">
+                                <h2
+                                    className="montserrat-500 text-sm truncate"
+                                    style={{ color: "rgba(255,255,255,0.92)" }}
+                                >
+                                    {album.title}
+                                </h2>
+                                <p
+                                    className="montserrat-300 text-[11px] truncate mt-0.5"
+                                    style={{ color: "rgba(255,255,255,0.45)" }}
+                                >
+                                    {album.artist}
+                                    <span style={{ color: "rgba(255,255,255,0.2)" }}> · </span>
+                                    {album.year}
+                                </p>
+                            </div>
+
+                            <span
+                                className="flex-shrink-0 text-sm transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5"
+                                style={{ color: "rgba(255,255,255,0.4)" }}>
+                                →
+                            </span>
                         </div>
                     ))}
                 </div>

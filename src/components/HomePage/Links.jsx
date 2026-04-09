@@ -15,7 +15,7 @@ const links = [
     },
     {
         name: "Favorites",
-        path: "/profile",
+        path: "/favorites",
         desc: "Take a look at all your favorite tracks and albums",
     },
     {
@@ -24,9 +24,9 @@ const links = [
         desc: "Music waiting for you to be listened",
     },
     {
-        name: "Library",
-        path: "/library",
-        desc: "View all your favorites albums, songs and much more",
+        name: "Global Top",
+        path: "/global",
+        desc: "View the Top Music around the Globe",
     },
 ];
 

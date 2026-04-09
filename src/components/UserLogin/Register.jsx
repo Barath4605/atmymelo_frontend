@@ -49,16 +49,18 @@ const Register = () => {
 
             localStorage.setItem("token", JSON.stringify(data.token));
             localStorage.setItem("username", JSON.stringify(data.username));
+            localStorage.setItem("name", JSON.stringify(data.name));
 
             setMessage("Account created. Please login.");
             window.location.href = "/login";
             setForm({
                 username: "",
+                name: "",
                 email: "",
                 password: "",
             });
 
-        } catch (err) {
+        } catch {
             setMessage("server not reachable");
         } finally {
             setLoading(false);
@@ -93,12 +95,27 @@ const Register = () => {
 
                     <input
                         type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                        value={form.name}
+                        onChange={handleChange}
+                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
+                    />
+
+                    <div className="border-b border-gray-200/50 pb-2">
+
+                    </div>
+
+                    <input
+                        type="text"
                         name="username"
-                        placeholder="Username"
+                        placeholder="Enter a unique username"
                         value={form.username}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none"
+                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
                     />
+
+
 
                     <input
                         type="email"
@@ -106,7 +123,7 @@ const Register = () => {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none"
+                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
                     />
 
                     <input
@@ -115,7 +132,7 @@ const Register = () => {
                         placeholder="Password"
                         value={form.password}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none"
+                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
                     />
 
                     <button
@@ -123,7 +140,7 @@ const Register = () => {
                         disabled={loading}
                         className="bg-white w-[80%] mx-auto text-black py-2 rounded-full
                         font-medium text-[13px] hover:w-[83%] ease-in-out duration-500
-                        transition-all cursor-pointer poppins-thin tracking-widest disabled:opacity-50"
+                        transition-all cursor-pointer poppins-semibold tracking-widest disabled:opacity-50"
                     >
                         {loading ? "CREATING..." : "CREATE ACCOUNT"}
                     </button>

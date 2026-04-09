@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import InteractionBtn from "./InteractionBtn.jsx";
 import ReadMore from "../ReadMorePage.jsx";
 import {useNavigate} from "react-router-dom";
+import "../../App.css"
+import "../../index.css"
 
 export default function AlbumHeader({
                                         albumImg, title, artist, year, genre, description,
@@ -40,7 +42,7 @@ export default function AlbumHeader({
                         Album
                     </p>
                     <h1
-                        className="text-4xl lg:text-6xl font-bold leading-none tracking-tight poppins-medium-italic"
+                        className="text-4xl lg:text-6xl font-bold leading-none tracking-tight space-grotesk-300"
                     >
                         {title}
                     </h1>

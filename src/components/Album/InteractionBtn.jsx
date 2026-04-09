@@ -1,16 +1,27 @@
 import React from 'react';
 import { Heart, ListMusic, Star } from "lucide-react";
 import toast from "react-hot-toast";
-import {toggleFavorite, rateAlbum, toggleQueue, submitReview, getUserReviews} from "../../albumApi.js";
+import {
+    toggleFavorite,
+    rateAlbum,
+    toggleQueue,
+    submitReview,
+    getUserReviews,
+    getLast3UserReviews
+} from "../../../api/albumApi.js";
 import DisplayReview from "./DisplayReview.jsx";
+import {useNavigate} from "react-router-dom";
 
 const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
+
+    const nav = useNavigate();
 
     const [isLiked, setIsLiked] = React.useState(favorite);
     const [isQueued, setIsQueued] = React.useState(queue);
     const [rating, setRating] = React.useState(initialRating);
     const [hovered, setHovered] = React.useState(0);
     const [review, setReview] = React.useState("");
+    const [last3Reviews, setLast3Reviews] = React.useState([]);
     const [allReviews, setAllReviews] = React.useState([]);
 
     const StarIcon = ({ active }) => (
@@ -42,6 +53,21 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
     };
 
+    // FETCH LAST 3 USER REVIEWS
+    const fetchLast3Reviews = async () => {
+        try {
+            const res = await getLast3UserReviews(mbid);
+            if (!res.ok) throw new Error();
+
+            const data = await res.json();
+            setLast3Reviews(data);
+
+        } catch {
+            console.log();
+        }
+    };
+
+    // FAVORITE
     const handleLike = async () => {
         try {
             const newVal = !isLiked;
@@ -58,6 +84,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
     };
 
+    // QUEUE
     const handleQueueClick = async () => {
         if (isLiked) {
             toast("Can't queue something you've already favorited");
@@ -80,6 +107,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
     };
 
+    // RATING
     const handleRate = async (val) => {
         try {
             const newVal = rating === val ? 0 : val;
@@ -98,6 +126,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
     };
 
+    // REVIEW
     const handleReview = async () => {
         if (!review.trim()) {
             toast.error("Review can't be empty");
@@ -111,7 +140,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
             toast.success("Review saved");
             setReview("");
 
-            await fetchReviews();
+            await fetchLast3Reviews();
 
         } catch {
             toast.error("Failed to submit review");
@@ -120,7 +149,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
     // GET ALL REVIEWS FROM THIS USER FOR THIS ALBUM
     React.useEffect(() => {
-        fetchReviews();
+        fetchLast3Reviews();
     }, [mbid]);
 
     // KEEP THE LIKES RATES AND REVIEWS TO QUEUES UPDATED TO THE BACKEND
@@ -191,7 +220,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                         })}
                         {rating > 0 && (
                             <span
-                                className="ml-2 montserrat-500 text-[12px] tracking-widest uppercase"
+                                className="ml-2 montserrat-500 text-[12px] p-1 px-3 bg-black/75 rounded-full tracking-widest uppercase"
                                 style={{ color: "rgba(251,191,36,0.55" }}
                             >
                                 {rating} / 5
@@ -208,57 +237,91 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                     value={review}
                     onChange={e => setReview(e.target.value)}
                     maxLength={500}
-                    placeholder="Write your thoughts..."
-                    className="w-full resize-none rounded-lg px-4 py-3 text-sm montserrat-300 outline-none transition-all duration-300 placeholder:opacity-30"
+                    disabled={rating === 0}
+                    placeholder={rating > 0 ? `Write your thoughts` : `rate me first :)`}
+                    className={`w-full resize-none rounded-lg px-4 py-3 text-sm montserrat-300 outline-none
+                                transition-all duration-300 placeholder:opacity-30
+                                ${rating > 0 ? `cursor-text h-50` : `cursor-not-allowed h-12`}
+                                `}
                     style={{
                         background: "rgba(255,255,255,0.04)",
                         border: "1px solid rgba(255,255,255,0.08)",
                         color: "rgba(255,255,255,0.75)",
-                        lineHeight: "1.8",
                     }}
                     onFocus={e => e.target.style.borderColor = "rgba(255,255,255,0.2)"}
                     onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
                 />
-
                 {review.length > 0 && (
                     <p className="text-xs text-right">
                         {review.length} / 500
                     </p>
                 )}
+
+                {rating >! 0 ?
+                    (
+                        <>
+                            <button
+                                onClick={handleReview}
+                                className={`text - xs p-2 text-white/70 
+                                        cursor-pointer w-1/2 uppercase 
+                                        transition-opacity duration-1000
+                                        bg-white/10 rounded`
+                                }>
+                                Submit Review
+                            </button>
+
+                        </>
+                    )
+                    :
+                    (
+                        <div className="transition-all ease-in-out duration-1000">
+                            <p className={`text-xs transition-opacity duration-500 text-gray-400`}>
+                                You have to rate the album before you can review it.
+                            </p>
+                        </div>
+
+                    )
+                }
             </div>
 
-            <button
-                onClick={handleReview}
-                className="mt-2 text-xs p-2 text-white/70 cursor-pointer w-1/2 uppercase bg-white/10 rounded">
-                Submit Review
-            </button>
+
 
             {/*ALL USER REVIEWS*/}
-            <div className="lg:w-250">
-                <h1 className="uppercase tracking-[0.2em] text-[14px] mb-2 font-medium">
-                    YOUR REVIEWS OVER THE TIME
-                </h1>
+            <div className="lg:w-250 montserrat-300">
+                <div className="lg:flex justify-between mb-2">
+                    <h1 className="uppercase tracking-[0.2em] text-[14px] lg:mb-2 font-medium">
+                        RECENT REVIEWS
+                    </h1>
 
-                {allReviews.length === 0 && (
-                    <p className="text-white/40 text-sm">
+                    { last3Reviews.length >= 3 &&
+                        (
+                            <button
+                                onClick={() => nav(`/albums/${mbid}/all-reviews`)}
+                                className>
+                                <h1 className="text-xs pb-px cursor-pointer border-b">OPEN ALL REVIEWS</h1>
+                            </button>
+                        )
+                    }
+                </div>
+
+                {last3Reviews.length === 0 && (
+                    <p className="text-white/40 tracking-widest text-xs">
                         No reviews yet
                     </p>
                 )}
 
 
                 <div className="flex flex-col gap-3">
-                    {allReviews.map((r) => (
-                        <>
-                            <DisplayReview
-                                key={r.id}
-                                username={r.username}
-                                review={r.content}
-                                reviewId={r.reviewId}
-                                rating={r.rating}
-                                date={r.createdAt}
-                                onDelete={fetchReviews}
-                            />
-                        </>
+                    {last3Reviews.map((r) => (
+                        <DisplayReview
+                            key={r.id}
+                            username={r.username}
+                            review={r.content}
+                            reviewId={r.reviewId}
+                            rating={r.rating}
+                            date={r.createdAt}
+                            onDelete={fetchLast3Reviews}
+                        />
                     ))}
                 </div>
             </div>

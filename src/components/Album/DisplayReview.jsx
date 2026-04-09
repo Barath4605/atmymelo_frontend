@@ -1,5 +1,5 @@
 import React from 'react';
-import {deleteUserReview } from "../../albumApi.js"
+import {deleteUserReview } from "../../../api/albumApi.js"
 import ReadMore from "../ReadMorePage.jsx";
 import { Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
@@ -54,7 +54,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
 
     return (
         <article
-            className="rounded-lg w-full"
+            className="rounded-lg"
             style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",

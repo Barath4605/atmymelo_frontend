@@ -75,45 +75,53 @@ const ArtistSearch = () => {
                       <div
                           key={artist.id}
                           onClick={() => nav(`${artist.id}`)}
-                          className="relative h-48 rounded-xl overflow-hidden cursor-pointer hover:scale-105
-                           transition-all ease-in-out duration-500
-                           group"
+                          className="group relative cursor-pointer"
                       >
-
-                          {artist.imageUrl ? (
-                              <img
-                                  src={artist.imageUrl}
-                                  alt={artist.name}
-                                  className="absolute inset-0 w-full h-full object-cover transition duration-700"
-                              />
-                          ) : (
-                              <div className="absolute inset-0 bg-emerald-500 flex items-center justify-center">
-                                    <span className="text-white tracking-wide montserrat-100 text-sm font-medium opacity-80">
-                                        No Image Available
-                                    </span>
-                              </div>
-                          )}
-
-                          {
-                              artist.imageUrl ? (
-
-                                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
-
+                          {/* Image */}
+                          <div className="relative overflow-hidden rounded-xl">
+                              {artist.imageUrl ? (
+                                  <img
+                                      src={artist.imageUrl}
+                                      alt={artist.name}
+                                      draggable={false}
+                                      className="w-full aspect-[1] object-cover object-top select-none transition-all duration-700 group-hover:brightness-75"
+                                      style={{ display: "block", filter: "brightness(0.9) saturate(0.85)" }}
+                                  />
                               ) : (
-
-                                  <div className="absolute inset-0 bg-black/50" />
-                              )
-                          }
-                          <div className="absolute inset-0 bg-purple-900/20 mix-blend-overlay" />
-
-                          <div className="relative z-10 p-4 h-full flex flex-col justify-end text-white">
-                              <h2 className="text-lg font-semibold">{artist.name}</h2>
-
-                              {artist.country && (
-                                  <p className="text-sm opacity-70">{artist.country}</p>
+                                  <div
+                                      className="w-full aspect-[1] rounded-xl flex items-center justify-center"
+                                      style={{
+                                          background: "linear-gradient(145deg, rgba(10,60,30,0.9), rgba(5,30,15,0.95))",
+                                          border: "1px solid rgba(150,255,180,0.08)",
+                                      }}
+                                  >
+                                    <span
+                                        className="montserrat-200"
+                                        style={{ fontSize: "5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
+                                    >
+                                        {artist.name?.charAt(0).toUpperCase()}
+                                    </span>
+                                  </div>
                               )}
-                          </div>
 
+                              {/* Slide-up name overlay on hover */}
+                              <div
+                                  className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 transition-all duration-500 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
+                                  style={{
+                                      background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
+                                      height: "60%",
+                                  }}
+                              >
+                                  <p className="montserrat-300 text-[9px] uppercase tracking-[0.25em] mb-1"
+                                     style={{ color: "rgba(255,255,255,0.8)" }}>
+                                      {artist.country || "Artist"}
+                                  </p>
+                                  <h2 className="montserrat-600 text-sm truncate"
+                                      style={{ color: "rgba(255,255,255,0.95)" }}>
+                                      {artist.name}
+                                  </h2>
+                              </div>
+                          </div>
                       </div>
                   ))}
               </div>

@@ -40,6 +40,13 @@ export const getUserReviews = (mbid) =>
         }
     });
 
+export const getLast3UserReviews = (mbid) =>
+    fetch(`http://localhost:8080/api/albums/${mbid}/last-3`, {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+        }
+    });
+
 export const deleteUserReview = (reviewid) => {
     return fetch(`${BASE}/delete-review/${reviewid}`, {
         method: "DELETE",
@@ -48,3 +55,4 @@ export const deleteUserReview = (reviewid) => {
         }
     })
 }
+

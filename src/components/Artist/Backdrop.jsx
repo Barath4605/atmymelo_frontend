@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
     return (
-        <div className="relative lg:w-3/4 mx-auto rounded-xl overflow-hidden">
+        <div className="relative lg:w-[90%] mx-auto rounded-xl overflow-hidden">
             {artistBackdrop && (
                 <>
                     <img
@@ -55,7 +55,7 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                     <img
                         src={artistLogo}
                         alt="Artist logo"
-                        className="max-h-20 max-w-xs w-auto object-contain"
+                        className="lg:max-h-40 max-h-20 max-w-xs w-auto object-contain"
                         style={{ filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.9))" }}
                     />
                 ) : (
