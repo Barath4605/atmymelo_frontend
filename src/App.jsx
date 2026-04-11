@@ -11,6 +11,7 @@ import AlbumPage from "./pages/Album/AlbumPage.jsx";
 import Profile from "./pages/Profile/profile.jsx";
 import DisplayAllReviews from "./pages/Album/DisplayAllReviews.jsx";
 import FavoritePage from "./pages/FavoritePage.jsx";
+import QueuePage from "./pages/QueuePage.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/artists/:id" element={<ArtistPage />} />
         <Route path="/artists" element={<ArtistSearch />} />
         <Route path="/favorites" element={<FavoritePage />} />
+        <Route path="/deck" element={<QueuePage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -218,3 +218,35 @@
 .floatSlowReverse {
     animation: floatSlowReverse 12s ease-in-out infinite;
 }
+
+@keyframes floatSmooth {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(40px, -60px, 0) scale(1.05);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes floatSmoothReverse {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1.05);
+    }
+    50% {
+        transform: translate3d(-50px, 70px, 0) scale(0.95);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1.05);
+    }
+}
+
+.floatSmooth {
+    animation: floatSmooth 18s ease-in-out infinite;
+}
+
+.floatSmoothReverse {
+    animation: floatSmoothReverse 22s ease-in-out infinite;
+}

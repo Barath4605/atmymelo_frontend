@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import FavoriteBg from "../components/Favorites/FavoriteBg.jsx";
+import QueueBg from "../components/Queue/QueueBg.jsx";
 import Tabs from "../components/Tabs.jsx";
-import { getUserGenres, getFavoriteAlbumOnGenre } from "../../api/favoriteApi.js"
+import { getQueueGenres, getQueueAlbumsByGenre } from "../../api/queueApi.js";
 import toast from "react-hot-toast";
 
 const name = localStorage.getItem("name");
@@ -11,8 +11,8 @@ const Star = ({ active }) => (
         viewBox="0 0 24 24"
         className="w-5 h-5"
         style={{
-            fill: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.15)",
-            filter: active ? "drop-shadow(0 0 6px rgba(255,255,255,0.6))" : "none",
+            fill: active ? "#60a5fa" : "rgba(255,255,255,0.15)", // 🔥 bluish stars (fits bg)
+            filter: active ? "drop-shadow(0 0 6px rgba(96,165,250,0.7))" : "none",
             transition: "all 0.2s ease"
         }}
     >
@@ -20,7 +20,7 @@ const Star = ({ active }) => (
     </svg>
 );
 
-const FavoritesPage = () => {
+const QueuePage = () => {
     const [genres, setGenres] = useState([]);
     const [activeTab, setActiveTab] = useState("");
     const [albums, setAlbums] = useState([]);
@@ -28,19 +28,16 @@ const FavoritesPage = () => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const res = await getUserGenres();
+                const res = await getQueueGenres();
                 const data = await res.json();
 
                 if (!res.ok) throw new Error();
 
                 setGenres(data);
-
-                if (data.length > 0) {
-                    setActiveTab(data[0]);
-                }
+                if (data.length > 0) setActiveTab(data[0]);
 
             } catch {
-                toast.error("Failed to load genres");
+                toast.error("Failed to load queue genres");
             }
         };
 
@@ -51,9 +48,9 @@ const FavoritesPage = () => {
         if (!activeTab) return;
 
         const fetchAlbums = async () => {
-            const toastId = toast.loading("Loading albums...");
+            const toastId = toast.loading("Loading queue...");
             try {
-                const res = await getFavoriteAlbumOnGenre(activeTab);
+                const res = await getQueueAlbumsByGenre(activeTab);
                 const data = await res.json();
 
                 if (!res.ok) throw new Error();
@@ -62,7 +59,7 @@ const FavoritesPage = () => {
                 toast.success("Loaded", { id: toastId });
 
             } catch {
-                toast.error("Failed to load albums", { id: toastId });
+                toast.error("Failed to load queue", { id: toastId });
             }
         };
 
@@ -71,12 +68,12 @@ const FavoritesPage = () => {
 
     return (
         <main className="relative min-h-screen overflow-hidden montserrat-300 text-white">
-            <FavoriteBg />
+            <QueueBg />
 
-            <header className="lg:p-5 p-3 lg:mx-10 border-b border-neutral-50/40">
+            <header className="lg:p-5 p-3 lg:mx-10 border-b border-white/20">
                 <h1 className="text-4xl lg:text-6xl poppins-semibold tracking-tight">
                     {name}'s <br />
-                    <span className="lg:text-7xl text-5xl tracking-tighter">FAVORITES</span>
+                    <span className="lg:text-7xl text-5xl tracking-tighter">QUEUE</span>
                 </h1>
             </header>
 
@@ -95,7 +92,7 @@ const FavoritesPage = () => {
 
                 {albums.length === 0 && (
                     <p className="text-white/40 col-span-full text-center">
-                        No favorites yet
+                        No albums in queue
                     </p>
                 )}
 
@@ -105,18 +102,14 @@ const FavoritesPage = () => {
                         className="group cursor-pointer"
                         onClick={() => window.location.href = `/albums/${album.albumId}`}
                     >
-
-                        {/* image */}
                         <div className="relative overflow-hidden rounded-lg">
                             <img
                                 src={album.imageUrl}
                                 alt={album.title}
-                                className="w-full h-full object-cover transition duration-500"
+                                className="w-full h-full object-cover"
                             />
-
                         </div>
 
-                        {/* text */}
                         <div className="mt-2">
                             <h2 className="text-xl font-medium line-clamp-1">
                                 {album.title}
@@ -141,4 +134,4 @@ const FavoritesPage = () => {
     );
 };
 
-export default FavoritesPage;
+export default QueuePage;
