@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../app.css"
+import "../../App.css"
 import {isLoggedIn, getUsername, getName} from "../../auth.js"
 import {useNavigate} from "react-router-dom";
 
