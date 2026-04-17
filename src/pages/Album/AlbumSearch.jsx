@@ -19,8 +19,10 @@ const AlbumSearch = () => {
         const toastId = toast.loading("Searching...");
 
         try {
+            const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+
             const res = await fetch(
-                `http://localhost:8080/api/albums/search?query=${encodeURIComponent(search)}`
+                `${API_URL}/api/albums/search?query=${encodeURIComponent(search)}`
             );
 
             const data = await res.json();

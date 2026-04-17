@@ -13,7 +13,9 @@ const AlbumPage = () => {
             const toastId = toast.loading("Loading album...");
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch(`http://localhost:8080/api/albums/${id}`, {
+                const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+
+                const res = await fetch(`${API_URL}/api/albums/${id}`, {
                     headers: { Authorization: "Bearer " + token },
                 });
                 const json = await res.json();

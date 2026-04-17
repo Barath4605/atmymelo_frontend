@@ -27,7 +27,9 @@ const DisplayAllReviews = () => {
 
     const fetchAlbum = async () => {
         try {
-            const res = await fetch(`http://localhost:8080/api/albums/${mbid}`, {
+            const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+
+            const res = await fetch(`${API_URL}/api/albums/${mbid}`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
