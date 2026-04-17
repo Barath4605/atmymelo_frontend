@@ -1,4 +1,5 @@
-const BASE = "http://localhost:8080/api/queue";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const BASE = `${API_URL}/api/queue`;
 
 const getAuthHeader = () => ({
     Authorization: "Bearer " + localStorage.getItem("token"),

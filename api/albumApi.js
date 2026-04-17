@@ -1,4 +1,5 @@
-const BASE = "http://localhost:8080/api/albums";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const ALBUM_BASE = `${API_URL}/api/albums`;
 
 const getAuthHeader = () => ({
     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -6,53 +7,52 @@ const getAuthHeader = () => ({
 });
 
 export const rateAlbum = (mbid, rating) =>
-    fetch(`${BASE}/${mbid}/rate`, {
+    fetch(`${ALBUM_BASE}/${mbid}/rate`, {
         method: "POST",
         headers: getAuthHeader(),
         body: JSON.stringify({ rating })
     });
 
 export const toggleFavorite = (mbid, favorite) =>
-    fetch(`${BASE}/${mbid}/favorite`, {
+    fetch(`${ALBUM_BASE}/${mbid}/favorite`, {
         method: "POST",
         headers: getAuthHeader(),
         body: JSON.stringify({ favorite })
     });
 
 export const toggleQueue = (mbid, queue) =>
-    fetch(`${BASE}/${mbid}/queue`, {
+    fetch(`${ALBUM_BASE}/${mbid}/queue`, {
         method: "POST",
         headers: getAuthHeader(),
         body: JSON.stringify({ queue })
     });
 
 export const submitReview = (mbid, review) =>
-    fetch(`${BASE}/${mbid}/review`, {
+    fetch(`${ALBUM_BASE}/${mbid}/review`, {
         method: "POST",
         headers: getAuthHeader(),
         body: JSON.stringify({ review })
     });
 
 export const getUserReviews = (mbid) =>
-    fetch(`http://localhost:8080/api/albums/${mbid}/all-reviews`, {
+    fetch(`${ALBUM_BASE}/${mbid}/all-reviews`, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
     });
 
 export const getLast3UserReviews = (mbid) =>
-    fetch(`http://localhost:8080/api/albums/${mbid}/last-3`, {
+    fetch(`${ALBUM_BASE}/${mbid}/last-3`, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
     });
 
 export const deleteUserReview = (reviewid) => {
-    return fetch(`${BASE}/delete-review/${reviewid}`, {
+    return fetch(`${ALBUM_BASE}/delete-review/${reviewid}`, {
         method: "DELETE",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
     })
 }
-

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Backdrop from "../../components/Artist/Backdrop.jsx";
 import toast from "react-hot-toast";
 import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
+import ArtistAlbums from "../Album/ArtistAlbums.jsx";
 
 const ArtistPage = () => {
 
@@ -47,6 +48,8 @@ const ArtistPage = () => {
                         artistDebut={artist.formed === null ? "-" : artist.formed}
                         artistLabel={artist.label === null ? "Independent" : artist.label}
           />
+
+          <ArtistAlbums artistId={id} />
 
       </main>
 
