@@ -61,8 +61,8 @@ const HomeLinks = () => {
                                   max-sm:-mt-1
                                 "
                     >
-            {link.desc}
-          </span>
+                    {link.desc}
+                  </span>
                 </button>
             ))}
         </nav>
