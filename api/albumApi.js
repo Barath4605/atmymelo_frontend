@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const API_URL = "https://atmymelo-backend.onrender.com";
 const ALBUM_BASE = `${API_URL}/api/albums`;
 
 const getAuthHeader = () => ({
