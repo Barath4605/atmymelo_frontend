@@ -1,6 +1,7 @@
 import React from "react";
 import "../../App.css"
 import {useNavigate} from "react-router-dom";
+import {isLoggedIn} from "../../auth.js"
 
 const links = [
     {
@@ -37,7 +38,13 @@ const HomeLinks = () => {
             {links.map((link) => (
                 <button
                     key={link.name}
-                    onClick={() => nav(link.path)}
+                    onClick={() => {
+                        if (isLoggedIn()) {
+                            nav(link.path);
+                        } else {
+                            nav("/register");
+                        }
+                    }}
                     className="relative lg:mb-2 text-start cursor-pointer group text-[28px] lg:w-[40%] w-[60%] leading-tight text-white"
                 >{link.name}
 

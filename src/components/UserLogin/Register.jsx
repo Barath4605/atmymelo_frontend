@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../index.css";
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -7,6 +8,8 @@ const Register = () => {
         email: "",
         password: "",
     });
+
+    const nav = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -155,6 +158,15 @@ const Register = () => {
                         {message}
                     </p>
                 )}
+
+                <p className="text-center montserrat-300 text-sm">
+                    Existing User?
+                    <button
+                        onClick={() => nav("/login")}
+                        className="pb-px border-b cursor-pointer ml-2">
+                        LOGIN
+                    </button>
+                </p>
 
             </div>
         </div>

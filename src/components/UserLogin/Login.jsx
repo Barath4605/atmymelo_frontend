@@ -125,16 +125,17 @@ const Login = () => {
                         <p className="text-center opacity-80">
                             {message}
                         </p>
-                        <p className="text-center">
-                            New User?
-                            <button
-                                onClick={() => nav("/register")}
-                                className="pb-px border-b  ml-2">
-                                REGISTER
-                            </button>
-                        </p>
                     </div>
                 )}
+
+                <p className="text-center montserrat-300 text-sm">
+                    New User?
+                    <button
+                        onClick={() => nav("/register")}
+                        className="pb-px border-b cursor-pointer ml-2">
+                        REGISTER
+                    </button>
+                </p>
 
             </div>
         </div>

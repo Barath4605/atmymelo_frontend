@@ -13,10 +13,6 @@ const Header = () => {
         .replace(/^"|"$/g, "")
         .trim();
 
-    console.log(name)
-    console.log(username)
-
-
   return (
       <>
           {!isLoggedIn() ? (
