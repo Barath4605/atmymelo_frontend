@@ -13,7 +13,7 @@ export const rateAlbum = (mbid, rating) =>
         body: JSON.stringify({ rating })
     });
 
-export const toggleFavorite = (mbid, favorite) =>
+export const  toggleFavorite = (mbid, favorite) =>
     fetch(`${ALBUM_BASE}/${mbid}/favorite`, {
         method: "POST",
         headers: getAuthHeader(),

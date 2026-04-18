@@ -3,15 +3,49 @@ import "../../App.css"
 
 const ProfileBackground = () => {
     return (
-        <div className="absolute inset-0 -z-10 bg-linear-to-tr from-taupe-400 via-taupe-300 to-zinc-200">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
 
-            <div className="absolute floatSlowReverse  w-[500px] h-[700px] bg-taupe-400 rounded-full blur-[120px] top-[-100px] left-[-100px]" />
-
-            <div className="absolute floatSlowReverse w-[500px] h-[500px] bg-stone-700 rounded-full blur-[120px] top-[100px] right-[-150px]" />
-
+            {/* base gradient */}
             <div
-                className="absolute floatSlowReverse w-[400px] h-[400px] bg-mauve-200 rounded-full blur-[150px] top-[50px] left-[200px]"
-                style={{ animationDuration: "18s" }}
+                className="absolute inset-0"
+                style={{
+                    background: "linear-gradient(135deg, #022c22, #065f46, #10b981, #065f46)",
+                    backgroundSize: "200% 200%",
+                    animation: "gradientFlow 18s ease infinite"
+                }}
+            />
+
+            {/* glow 1 */}
+            <div
+                className="absolute w-[600px] h-[600px] rounded-full blur-[180px] opacity-50"
+                style={{
+                    background: "#34d399",
+                    top: "-150px",
+                    left: "10%",
+                    animation: "glowDrift 20s ease-in-out infinite"
+                }}
+            />
+
+            {/* glow 2 */}
+            <div
+                className="absolute w-[500px] h-[500px] rounded-full blur-[160px] opacity-40"
+                style={{
+                    background: "#059669",
+                    bottom: "-150px",
+                    right: "10%",
+                    animation: "glowDrift 25s ease-in-out infinite"
+                }}
+            />
+
+            {/* center glow */}
+            <div
+                className="absolute w-[300px] h-[300px] rounded-full blur-[140px] opacity-30"
+                style={{
+                    background: "#6ee7b7",
+                    top: "30%",
+                    left: "40%",
+                    animation: "glowDrift 30s ease-in-out infinite"
+                }}
             />
         </div>
     );

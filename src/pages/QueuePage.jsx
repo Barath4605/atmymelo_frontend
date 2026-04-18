@@ -49,7 +49,6 @@ const QueuePage = () => {
         if (!activeTab) return;
 
         const fetchAlbums = async () => {
-            const toastId = toast.loading("Loading queue...");
             try {
                 const res = await getQueueAlbumsByGenre(activeTab);
                 const data = await res.json();
@@ -57,7 +56,6 @@ const QueuePage = () => {
                 if (!res.ok) throw new Error();
 
                 setAlbums(data);
-                toast.success("Loaded", { id: toastId });
 
             } catch {
                 toast.error("Failed to load queue", { id: toastId });
@@ -73,7 +71,7 @@ const QueuePage = () => {
 
             <Navbar />
 
-            <header className="lg:p-5 p-3 lg:mx-10 border-b border-white/20">
+            <header className="lg:p-5 p-3 pt-6 lg:mx-10 border-b border-white/20">
                 <h1 className="text-4xl lg:text-6xl poppins-semibold tracking-tight">
                     {name}'s <br />
                     <span className="lg:text-7xl text-5xl tracking-tighter">QUEUE</span>

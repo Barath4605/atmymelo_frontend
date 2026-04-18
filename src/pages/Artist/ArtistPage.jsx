@@ -5,10 +5,12 @@ import toast from "react-hot-toast";
 import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
 import ArtistAlbums from "../Album/ArtistAlbums.jsx";
 import Navbar from "../../components/Navbar.jsx";
+import ErrorPage from "../ErrorPage.jsx";
 
 const ArtistPage = () => {
 
     const [artist, setArtist] = useState(null);
+    const [error, setError] = useState(false);
     const { id } = useParams();
 
     useEffect(() => {
@@ -22,14 +24,13 @@ const ArtistPage = () => {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    toast.error("Failed to load artist", { id: toastId });
-                    return;
+                    setError(true);
                 }
 
                 setArtist(data);
                 toast.success("Loaded", { id: toastId });
 
-            } catch (err) {
+            } catch {
                 toast.error("Server error", { id: toastId });
             }
         };
@@ -41,23 +42,34 @@ const ArtistPage = () => {
 
   return (
 
-      <main className="bg-linear-to-b from-black to-black pb-10 min-h-screen">
-          <Navbar />
+      <>
+          {
+              error ?
+                  (
+                      <ErrorPage msg="Artist is not in our Data Base yet" />
+                  )
+                  :
+                  (
+                      <main className="bg-linear-to-b from-black to-black pb-10 min-h-screen">
+                          <Navbar />
 
-          <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />
+                          <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />
 
 
-          <ArtistHeader artistImg={artist.photoUrl}
-                        imgAlt={artist.name}
-                        artistBio={artist.bio}
-                        artistBorn={artist.born}
-                        artistDebut={artist.formed === null ? "-" : artist.formed}
-                        artistLabel={artist.label === null ? "Independent" : artist.label}
-          />
+                          <ArtistHeader artistImg={artist.photoUrl}
+                                        imgAlt={artist.name}
+                                        artistBio={artist.bio}
+                                        artistBorn={artist.born}
+                                        artistDebut={artist.formed === null ? "-" : artist.formed}
+                                        artistLabel={artist.label === null ? "Independent" : artist.label}
+                          />
 
-          <ArtistAlbums artistId={id} />
+                          <ArtistAlbums artistId={id} />
 
-      </main>
+                      </main>
+                  )
+          }
+      </>
 
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, ListMusic, Star } from "lucide-react";
+import { Heart, ListMusic } from "lucide-react";
 import toast from "react-hot-toast";
 import {
     toggleFavorite,

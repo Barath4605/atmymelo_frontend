@@ -55,7 +55,7 @@ const ArtistSearch = () => {
 
           <Navbar />
 
-          <section className="lg:w-[75%] w-[90%] m-auto pt-10 min-h-screen">
+          <section className="lg:w-[75%] w-[90%] m-auto pt-12 min-h-screen">
               <h1 className="lg:text-7xl text-4xl text-white poppins-semibold">
                   Search for your <br/> favorite artists
               </h1>
@@ -75,7 +75,7 @@ const ArtistSearch = () => {
                   </button>
               </form>
 
-              <div className="mt-6 grid lg:grid-cols-3 gap-4 text-white">
+              <div className="mt-6 mb-3 grid lg:grid-cols-3 gap-4 text-white">
                   {results.map((artist) => (
                       <div
                           key={artist.id}

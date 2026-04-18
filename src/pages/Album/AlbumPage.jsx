@@ -4,14 +4,15 @@ import toast from "react-hot-toast";
 import AlbumBackdrop from "../../components/Album/AlbumBackdrop.jsx";
 import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
 import Navbar from "../../components/Navbar.jsx";
+import ErrorPage from "../ErrorPage.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
+    const [failed, setFailed] = useState(false);
 
     useEffect(() => {
         const fetchAlbum = async () => {
-            const toastId = toast.loading("Loading album...");
             try {
                 const token = localStorage.getItem("token");
                 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
@@ -20,9 +21,10 @@ const AlbumPage = () => {
                     headers: { Authorization: "Bearer " + token },
                 });
                 const json = await res.json();
-                if (!res.ok) { toast.error("Failed to load album", { id: toastId }); return; }
+                if (!res.ok) {
+                    setFailed(true);
+                }
                 setData(json);
-                toast.success("Loaded", { id: toastId });
             } catch {
                 toast.error("Server error");
             }
@@ -35,30 +37,40 @@ const AlbumPage = () => {
     const { album, rating, favorite, queue } = data;
 
     return (
-        <main
-            className="relative min-h-screen pb-16"
-            style={{ backgroundColor: "#0e0e0e" }}
-        >
-            <Navbar />
-            <AlbumBackdrop
-                backdrop={album.artist?.backdropUrl}
-                title={album.title}
-            />
+        <>
+            {failed ?
+                (
+                    <ErrorPage msg="This album does not exist in our Data Base yet " />
+                )
+                :
+                (
+                    <main
+                        className="relative min-h-screen pb-16"
+                        style={{ backgroundColor: "#0e0e0e" }}
+                    >
+                        <Navbar />
+                        <AlbumBackdrop
+                            backdrop={album.artist?.backdropUrl}
+                            title={album.title}
+                        />
 
-            <AlbumHeader
-                albumImg={album.imageUrl}
-                title={album.title}
-                artist={album.artist?.name}
-                year={album.releaseYear}
-                genre={album.genre}
-                description={album.description}
-                rating={rating}
-                favorite={favorite}
-                queue={queue}
-                artistId={album.artist.id}
-                albumId={id}
-            />
-        </main>
+                        <AlbumHeader
+                            albumImg={album.imageUrl}
+                            title={album.title}
+                            artist={album.artist?.name}
+                            year={album.releaseYear}
+                            genre={album.genre}
+                            description={album.description}
+                            rating={rating}
+                            favorite={favorite}
+                            queue={queue}
+                            artistId={album.artist.id}
+                            albumId={id}
+                        />
+                    </main>
+                )
+            }
+        </>
     );
 };
 

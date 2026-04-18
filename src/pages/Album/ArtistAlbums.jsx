@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { getArtistAlbums } from "../../../api/artistApi.js"
 import AlbumCard from "./AlbumCard.jsx";
 import toast from "react-hot-toast";
+import Loading from "../../components/Loading.jsx";
 
 const ArtistAlbums = ({ artistId }) => {
     const [albums, setAlbums] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchAlbums = async () => {
+            setLoading(true);
             try {
                 const res = await getArtistAlbums(artistId);
                 const data = await res.json();
@@ -17,6 +20,8 @@ const ArtistAlbums = ({ artistId }) => {
                 setAlbums(data);
             } catch {
                 toast.error("Failed to load albums");
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -32,13 +37,20 @@ const ArtistAlbums = ({ artistId }) => {
                 Albums
             </h2>
 
-            <div className="grid-cols-2 lg:grid-cols-5 grid overflow-x-auto pb-2 scrollbar-hide">
+            {loading ? (
+                <Loading />
+            )
+                :
+            (
+                <div className="grid-cols-2 lg:grid-cols-5 grid overflow-x-auto pb-2 scrollbar-hide">
 
-                {albums.map((album) => (
-                    <AlbumCard key={album.id} album={album} />
-                ))}
+                    {albums.map((album) => (
+                        <AlbumCard key={album.id} album={album} />
+                    ))}
 
-            </div>
+                </div>
+            )
+            }
 
         </section>
     );

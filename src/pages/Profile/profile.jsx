@@ -20,12 +20,23 @@ const Profile = () => {
 
   return (
        <>
-           <main className="relative p-3 min-h-screen overflow-hidden">
-                <ProfileBackground />
-               <header className="p-3 border-b text-taupe-500 border-zinc-500">
-                   <h1 className="text-3xl lg:text-5xl poppins-semibold">{`Welcome, ${profile?.name}`}</h1>
-                   <h1 className="text-xl poppins-medium-italic text-taupe-600">@{profile?.username}</h1>
+           <main className="relative p-3 flex flex-col min-h-screen overflow-hidden">
+               <ProfileBackground />
+
+               <header className="p-3 border-b border-emerald-900/40 text-emerald-100">
+                   <h1 className="text-3xl lg:text-5xl poppins-semibold">
+                       {`Welcome, ${profile?.name}`}
+                   </h1>
+                   <h1 className="text-xl montserrat-200 text-emerald-300">
+                       @{profile?.username}
+                   </h1>
                </header>
+
+               <div className="flex flex-1 montserrat-400 text-emerald-200 justify-center items-center text-center">
+                   <h1>
+                       [ THE PROFILE PAGE IS STILL UNDER DEVELOPMENT. v1 WILL BE OUT SOON ]
+                   </h1>
+               </div>
            </main>
        </>
   );
