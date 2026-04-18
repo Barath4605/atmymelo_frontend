@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import AlbumBackdrop from "../../components/Album/AlbumBackdrop.jsx";
 import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
+import Navbar from "../../components/Navbar.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -38,6 +39,7 @@ const AlbumPage = () => {
             className="relative min-h-screen pb-16"
             style={{ backgroundColor: "#0e0e0e" }}
         >
+            <Navbar />
             <AlbumBackdrop
                 backdrop={album.artist?.backdropUrl}
                 title={album.title}

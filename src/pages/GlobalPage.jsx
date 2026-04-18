@@ -1,6 +1,7 @@
 import React from 'react';
 import GlobalBg from "../components/Global/GlobalBg.jsx";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
 const GlobalPage = () => {
 
@@ -9,6 +10,8 @@ const GlobalPage = () => {
   return (
       <main className="relative min-h-screen overflow-hidden montserrat-300 text-white">
           <GlobalBg />
+
+          <Navbar />
 
           <div className="min-h-screen text-center flex flex-col justify-center items-center">
               <h1 className="text-xl">[ GLOBAL TOP MUSIC WILL BE AVAILABLE SOON ]</h1>

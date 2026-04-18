@@ -4,6 +4,7 @@ import Backdrop from "../../components/Artist/Backdrop.jsx";
 import toast from "react-hot-toast";
 import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
 import ArtistAlbums from "../Album/ArtistAlbums.jsx";
+import Navbar from "../../components/Navbar.jsx";
 
 const ArtistPage = () => {
 
@@ -41,7 +42,10 @@ const ArtistPage = () => {
   return (
 
       <main className="bg-linear-to-b from-black to-black pb-10 min-h-screen">
+          <Navbar />
+
           <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />
+
 
           <ArtistHeader artistImg={artist.photoUrl}
                         imgAlt={artist.name}

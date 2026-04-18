@@ -4,6 +4,7 @@ import ArtistSearchBg from "../../components/Artist/ArtistSearchBg.jsx";
 import {Search} from "lucide-react";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../../components/Navbar.jsx";
 
 const ArtistSearch = () => {
     const [search, setSearch] = useState("");
@@ -51,6 +52,8 @@ const ArtistSearch = () => {
   return (
       <main className="relative min-h-screen overflow-hidden montserrat-300" >
         <ArtistSearchBg />
+
+          <Navbar />
 
           <section className="lg:w-[75%] w-[90%] m-auto pt-10 min-h-screen">
               <h1 className="lg:text-7xl text-4xl text-white poppins-semibold">

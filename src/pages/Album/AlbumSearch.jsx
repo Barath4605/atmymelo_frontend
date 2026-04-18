@@ -3,6 +3,7 @@ import "../../App.css"
 import AlbumSearchBg from "../../components/Album/AlbumSearchBg.jsx";
 import { Search } from "lucide-react";
 import toast from "react-hot-toast";
+import Navbar from "../../components/Navbar.jsx";
 
 const AlbumSearch = () => {
     const [search, setSearch] = useState("");
@@ -50,6 +51,8 @@ const AlbumSearch = () => {
         <main className="relative min-h-screen overflow-hidden montserrat-300">
 
             <AlbumSearchBg />
+
+            <Navbar />
 
             <section className="lg:w-[75%] w-[90%] m-auto pt-10 min-h-screen">
                 <h1 className="lg:text-7xl text-4xl text-white poppins-semibold">

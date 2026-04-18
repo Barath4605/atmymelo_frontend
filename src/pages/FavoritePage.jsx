@@ -3,6 +3,7 @@ import FavoriteBg from "../components/Favorites/FavoriteBg.jsx";
 import Tabs from "../components/Tabs.jsx";
 import { getUserGenres, getFavoriteAlbumOnGenre } from "../../api/favoriteApi.js"
 import toast from "react-hot-toast";
+import Navbar from "../components/Navbar.jsx";
 
 const name = localStorage.getItem("name");
 
@@ -72,6 +73,8 @@ const FavoritesPage = () => {
     return (
         <main className="relative min-h-screen overflow-hidden montserrat-300 text-white">
             <FavoriteBg />
+
+            <Navbar />
 
             <header className="lg:p-5 p-3 lg:mx-10 border-b border-neutral-50/40">
                 <h1 className="text-4xl lg:text-6xl poppins-semibold tracking-tight">
