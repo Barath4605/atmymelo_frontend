@@ -55,7 +55,7 @@ const ArtistSearch = () => {
 
           <Navbar />
 
-          <section className="lg:w-[75%] w-[90%] m-auto pt-12 min-h-screen">
+          <section className="lg:w-[75%] w-[90%] m-auto pt-20 min-h-screen">
               <h1 className="lg:text-7xl text-4xl text-white poppins-semibold">
                   Search for your <br/> favorite artists
               </h1>

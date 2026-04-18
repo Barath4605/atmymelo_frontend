@@ -28,32 +28,21 @@ const ArtistAlbums = ({ artistId }) => {
         fetchAlbums();
     }, [artistId]);
 
+    if(loading) return <Loading />;
     if (albums.length === 0) return null;
 
     return (
         <section className="lg:w-[70%] w-[90%] mx-auto mt-10">
-
             <h2 className="text-white/40 text-sm tracking-widest uppercase mb-4">
                 Albums
             </h2>
-
-            {loading ? (
-                <Loading />
-            )
-                :
-            (
-                <div className="grid-cols-2 lg:grid-cols-5 grid overflow-x-auto pb-2 scrollbar-hide">
-
-                    {albums.map((album) => (
-                        <AlbumCard key={album.id} album={album} />
-                    ))}
-
-                </div>
-            )
-            }
-
+            <div className="grid-cols-2 lg:grid-cols-5 grid overflow-x-auto pb-2 scrollbar-hide">
+                {albums.map((album) => (
+                    <AlbumCard key={album.id} album={album} />
+                ))}
+            </div>
         </section>
-    );
+    )
 };
 
 export default ArtistAlbums;

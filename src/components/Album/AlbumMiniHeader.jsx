@@ -2,7 +2,7 @@ import React from "react";
 
 const AlbumMiniHeader = ({ albumImg, title, artist, year }) => {
     return (
-        <section className="lg:w-[70%] w-[90%] mx-auto pt-12 border-b border-white/10 pb-6">
+        <section className="lg:w-[70%] w-[90%] mx-auto pt-20 border-b border-white/10 pb-6">
 
             <div className="flex items-center gap-5">
 

@@ -18,7 +18,7 @@ const Navbar = () => {
     const activeRoute = location.pathname;
 
     return (
-        <div className="sticky montserrat-200 w-fit mx-auto px-6 backdrop-blur-3xl backdrop-saturate-120 border-t border-white/30
+        <div className="fixed montserrat-200 w-fit left-1/2 -translate-x-1/2 px-6 backdrop-blur-3xl backdrop-saturate-120 border-t border-white/30
                 shadow-black/5 shadow-md rounded-full text-md top-4 z-50
                 bg-linear-to-br from-black/20 via-black/30 to-black/40 text-white">
             <div className="flex space-x-4">
