@@ -92,7 +92,7 @@ const FavoritesPage = () => {
                 ))}
             </div>
 
-            <section className="lg:w-[85%] w-[92%] mx-auto mt-6 grid grid-cols-2 lg:grid-cols-4 gap-5 pb-15">
+            <section className="lg:w-[85%] w-[92%] mx-auto mt-6 grid grid-cols-2 lg:grid-cols-5 gap-5 pb-15">
 
                 {albums.length === 0 && (
                     <p className="text-white/40 col-span-full text-center">

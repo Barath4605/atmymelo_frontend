@@ -71,7 +71,7 @@ const ArtistSearch = () => {
                       placeholder="Search here"
                   />
                   <button type="submit">
-                      <Search size={40} className="bg-white p-2 text-emerald-900 cursor-pointer rounded-full" />
+                      <Search size={40} className="bg-white p-2 text-pink-800 cursor-pointer rounded-full" />
                   </button>
               </form>
 
@@ -80,52 +80,29 @@ const ArtistSearch = () => {
                       <div
                           key={artist.id}
                           onClick={() => nav(`${artist.id}`)}
-                          className="group relative cursor-pointer"
+                          className="cursor-pointer"
                       >
-                          {/* Image */}
-                          <div className="relative overflow-hidden rounded-xl">
+                          {/* image */}
+                          <div className="w-full aspect-square bg-neutral-800 rounded-md overflow-hidden">
                               {artist.imageUrl ? (
                                   <img
                                       src={artist.imageUrl}
                                       alt={artist.name}
-                                      draggable={false}
-                                      className="w-full aspect-[1] object-cover object-top select-none transition-all duration-700 group-hover:brightness-75"
-                                      style={{ display: "block", filter: "brightness(0.9) saturate(0.85)" }}
+                                      className="w-full h-full object-cover"
                                   />
                               ) : (
-                                  <div
-                                      className="w-full aspect-[1] rounded-xl flex items-center justify-center"
-                                      style={{
-                                          background: "linear-gradient(145deg, rgba(10,60,30,0.9), rgba(5,30,15,0.95))",
-                                          border: "1px solid rgba(150,255,180,0.08)",
-                                      }}
-                                  >
-                                    <span
-                                        className="montserrat-200"
-                                        style={{ fontSize: "5rem", color: "rgba(255,255,255,0.06)", lineHeight: 1 }}
-                                    >
-                                        {artist.name?.charAt(0).toUpperCase()}
-                                    </span>
+                                  <div className="flex items-center justify-center h-full text-3xl text-neutral-500">
+                                      {artist.name?.[0]}
                                   </div>
                               )}
+                          </div>
 
-                              {/* Slide-up name overlay on hover */}
-                              <div
-                                  className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 transition-all duration-500 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
-                                  style={{
-                                      background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
-                                      height: "60%",
-                                  }}
-                              >
-                                  <p className="montserrat-300 text-[9px] uppercase tracking-[0.25em] mb-1"
-                                     style={{ color: "rgba(255,255,255,0.8)" }}>
-                                      {artist.country || "Artist"}
-                                  </p>
-                                  <h2 className="montserrat-600 text-sm truncate"
-                                      style={{ color: "rgba(255,255,255,0.95)" }}>
-                                      {artist.name}
-                                  </h2>
-                              </div>
+                          {/* text */}
+                          <div className="mt-2">
+                              <p className="text-sm truncate">{artist.name}</p>
+                              <p className="text-xs text-neutral-400">
+                                  {artist.country || "artist"}
+                              </p>
                           </div>
                       </div>
                   ))}

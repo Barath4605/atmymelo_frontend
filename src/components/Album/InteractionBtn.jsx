@@ -263,7 +263,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                             <button
                                 onClick={handleReview}
                                 className={`text - xs p-2 text-white/70 
-                                        cursor-pointer w-1/2 uppercase 
+                                        cursor-pointer w-1/2  poppins-light 
+                                        tracking-widest 
                                         transition-opacity duration-1000
                                         bg-white/10 rounded`
                                 }>

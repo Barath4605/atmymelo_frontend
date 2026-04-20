@@ -5,6 +5,7 @@ import AlbumBackdrop from "../../components/Album/AlbumBackdrop.jsx";
 import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
 import Navbar from "../../components/Navbar.jsx";
 import ErrorPage from "../ErrorPage.jsx";
+import TrackList from "../../components/Tracklist/Tracklist.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -67,7 +68,11 @@ const AlbumPage = () => {
                             artistId={album.artist.id}
                             albumId={id}
                         />
+
+                    <TrackList mbid={id} />
+
                     </main>
+
                 )
             }
         </>
