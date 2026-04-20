@@ -72,6 +72,7 @@ const TrackList = ({ mbid}) => {
                         <div className="flex-1 min-w-0">
                             <p className="text-sm text-zinc-900 dark:text-zinc-100 truncate">
                                 {track.strTrack}
+
                             </p>
                             <p className="text-xs text-zinc-400 mt-0.5">{track.strArtist}</p>
                         </div>
