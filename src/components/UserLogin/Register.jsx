@@ -13,6 +13,7 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,8 +27,8 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!form.username || !form.email || !form.password) {
-            setMessage("Fill all Details");
+        if (!form.username || !form.email || !form.password || !form.name) {
+            setMessage("Please fill in all details");
             return;
         }
 
@@ -48,7 +49,7 @@ const Register = () => {
             const data = await res.json();
 
             if (!res.ok) {
-                setMessage(data.message || "Registration failed");
+                setMessage(data.message || "Something went wrong. Please try again.");
                 return;
             }
 
@@ -56,8 +57,13 @@ const Register = () => {
             localStorage.setItem("username", JSON.stringify(data.username));
             localStorage.setItem("name", JSON.stringify(data.name));
 
-            setMessage("Account created. Please login.");
-            window.location.href = "/login";
+            setSuccess(true);
+
+            setMessage("Account created. Redirecting to login page.");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1500);
+
             setForm({
                 username: "",
                 name: "",
@@ -66,7 +72,7 @@ const Register = () => {
             });
 
         } catch {
-            setMessage("server not reachable");
+            setMessage("Server not reachable. Please check your connection.");
         } finally {
             setLoading(false);
         }
@@ -104,7 +110,7 @@ const Register = () => {
                         placeholder="Enter your name"
                         value={form.name}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
+                        className="p-3 rounded bg-white/10  backdrop-blur-[20px] outline-none"
                     />
 
                     <div className="border-b border-gray-200/50 pb-2">
@@ -117,7 +123,7 @@ const Register = () => {
                         placeholder="Enter a unique username"
                         value={form.username}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
+                        className="p-3 rounded bg-white/10 backdrop-blur-[20px] outline-none"
                     />
 
 
@@ -128,7 +134,7 @@ const Register = () => {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
+                        className="p-3 rounded bg-white/10 backdrop-blur-[20px] outline-none"
                     />
 
                     <input
@@ -137,7 +143,7 @@ const Register = () => {
                         placeholder="Password"
                         value={form.password}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 pb-2 border border-white/20 border-t-2 border-t-white/30 backdrop-blur-[20px] outline-none"
+                        className="p-3 rounded bg-white/10 backdrop-blur-[20px] outline-none"
                     />
 
                     <button
@@ -154,9 +160,13 @@ const Register = () => {
 
                 {/* MESSAGE */}
                 {message && (
-                    <p className="text-center text-sm opacity-80">
-                        {message}
-                    </p>
+                    <div className={`p-3 border-l-4 mx-auto w-fit text-sm transition-all duration-300 ${
+                        success
+                            ? "bg-green-500/30 border-green-500 text-green-100"
+                            : "bg-red-500/30 border-red-500 text-red-100"
+                    }`}>
+                        <p className="poppins-light">{message}</p>
+                    </div>
                 )}
 
                 <p className="text-center montserrat-300 text-sm">

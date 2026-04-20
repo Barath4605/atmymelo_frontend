@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../index.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -12,6 +12,7 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,6 +26,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setMessage("");
+        setSuccess(false);
+
         if (!form.email || !form.password) {
             setMessage("Fill all Details");
             return;
@@ -32,7 +36,6 @@ const Login = () => {
 
         try {
             setLoading(true);
-            setMessage("");
 
             const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
@@ -47,21 +50,25 @@ const Login = () => {
             const data = await res.json();
 
             if (!res.ok) {
-                setMessage(data.message || "Login failed");
+                setMessage(data.message || "Invalid credentials");
+                setSuccess(false);
                 return;
             }
 
-            // TOKEN STORAGE
             localStorage.setItem("token", data.token);
             localStorage.setItem("username", data.username);
             localStorage.setItem("name", data.name);
 
-            setMessage("Login successful");
+            setSuccess(true);
+            setMessage("Login successful. Redirecting...");
 
-            window.location.href = "/";
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1000);
 
         } catch {
             setMessage("Server not Reachable");
+            setSuccess(false);
         } finally {
             setLoading(false);
         }
@@ -96,7 +103,7 @@ const Login = () => {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none"
+                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none border border-white/10 focus:border-white/40 transition-all"
                     />
 
                     <input
@@ -105,14 +112,14 @@ const Login = () => {
                         placeholder="Password"
                         value={form.password}
                         onChange={handleChange}
-                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none"
+                        className="p-3 rounded bg-white/10 backdrop-blur-md outline-none border border-white/10 focus:border-white/40 transition-all"
                     />
 
                     <button
                         type="submit"
                         disabled={loading}
                         className="bg-white w-[80%] mx-auto text-gray-900 py-2 rounded-full
-                        font-bold text-[13px] hover:w-[83%] ease-in-out duration-500
+                        font-bold text-[13px] hover:scale-105 ease-in-out duration-500
                         transition-all cursor-pointer poppins-semibold tracking-widest disabled:opacity-50"
                     >
                         {loading ? "LOGGING IN..." : "LOGIN"}
@@ -121,10 +128,12 @@ const Login = () => {
                 </form>
 
                 {message && (
-                    <div className="justify-center space-x-2 text-sm">
-                        <p className="text-center opacity-80">
-                            {message}
-                        </p>
+                    <div className={`p-3 border-l-4 mx-auto w-fit text-sm transition-all duration-300 ${
+                        success
+                            ? "bg-green-500/30 border-green-500 text-green-100"
+                            : "bg-red-500/30 border-red-500 text-red-100"
+                    }`}>
+                        <p className="poppins-light">{message}</p>
                     </div>
                 )}
 
