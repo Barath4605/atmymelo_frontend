@@ -56,8 +56,8 @@ const ArtistSearch = () => {
           <Navbar />
 
           <section className="lg:w-[75%] w-[90%] m-auto pt-20 min-h-screen">
-              <h1 className="lg:text-7xl text-4xl text-white poppins-semibold">
-                  Search for your <br/> favorite artists
+              <h1 className="lg:text-6xl text-3xl text-white/85 poppins-semibold">
+                  Search for your <br/> <span className="lg:text-7xl text-4xl">favorite artists</span>
               </h1>
 
               <form onSubmit={handleSubmit} className="flex items-center gap-2">

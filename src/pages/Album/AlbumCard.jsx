@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
+import ActionOverlay from "../../components/ActionOverlay.jsx";
 
 const AlbumCard = ({ album }) => {
+
+    const [showActionOverlay, setShowActionOverlay] = useState(false);
+
     return (
         <div
             className="lg:min-w-50 m-2 cursor-pointer"
-            onClick={() => window.location.href = `/albums/${album.id}`}
-        >
-            <div className="relative overflow-hidden rounded-xs">
+            onClick={() => window.location.href = `/albums/${album.id}`} >
+            <div
+                onMouseEnter={() => setShowActionOverlay(true)}
+                onMouseLeave={() => setShowActionOverlay(false)}
+                className={`relative overflow-hidden rounded-xs`}>
                 <img
                     src={album.imageUrl}
                     alt={album.title}

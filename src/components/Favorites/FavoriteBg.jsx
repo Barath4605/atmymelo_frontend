@@ -4,7 +4,7 @@ const FavoriteBg = () => {
     return (
         <div className="absolute inset-0 -z-10 overflow-hidden">
 
-            <div className="absolute inset-0 bg-linear-to-br from-yellow-400 via-[#FF9A00] to-[#7A1E00]" />
+            <div className="absolute inset-0 bg-linear-to-b from-yellow-500 via-[#FF9A00] to-[#7A1E00]" />
 
             <div className="absolute floatSlow w-[700px] h-[700px] bg-yellow-500 rounded-full blur-[180px] top-[-200px] left-1/2 -translate-x-1/2 opacity-80" />
 

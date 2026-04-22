@@ -12,7 +12,7 @@ const Star = ({ active }) => (
         viewBox="0 0 24 24"
         className="w-5 h-5"
         style={{
-            fill: active ? "#60a5fa" : "rgba(255,255,255,0.15)", // 🔥 bluish stars (fits bg)
+            fill: active ? "#60a5fa" : "rgba(255,255,255,0.15)",
             filter: active ? "drop-shadow(0 0 6px rgba(96,165,250,0.7))" : "none",
             transition: "all 0.2s ease"
         }}
@@ -89,7 +89,7 @@ const QueuePage = () => {
                 ))}
             </div>
 
-            <section className="lg:w-[85%] w-[92%] mx-auto mt-6 grid grid-cols-2 lg:grid-cols-4 gap-5 pb-15">
+            <section className="lg:w-[85%] w-[92%] mx-auto mt-6 grid grid-cols-2 lg:grid-cols-5 gap-5 pb-15">
 
                 {albums.length === 0 && (
                     <p className="text-white/40 col-span-full text-center">
