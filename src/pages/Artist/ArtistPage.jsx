@@ -30,8 +30,10 @@ const ArtistPage = () => {
                 setArtist(data);
                 toast.success("Loaded", { id: toastId });
 
+                console.log(artist.backdropUrl);
+                console.log(artist.logoUrl);
+
             } catch {
-                toast.error("Server error", { id: toastId });
             }
         };
 
@@ -50,7 +52,7 @@ const ArtistPage = () => {
                   )
                   :
                   (
-                      <main className="bg-linear-to-b from-black to-black pb-10 min-h-screen">
+                      <main className="pb-10 min-h-screen">
                           <Navbar />
 
                           <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />

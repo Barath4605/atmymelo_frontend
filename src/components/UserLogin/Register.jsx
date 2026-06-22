@@ -53,9 +53,19 @@ const Register = () => {
                 return;
             }
 
+
             localStorage.setItem("token", JSON.stringify(data.token));
             localStorage.setItem("username", JSON.stringify(data.username));
             localStorage.setItem("name", JSON.stringify(data.name));
+
+            const expiry = Date.now() + (3 * 24 * 60 * 60 * 1000);
+            localStorage.setItem("expiry", expiry);
+
+            const getExpiry = localStorage.getItem("expiry");
+
+            if (Date.now() > getExpiry) {
+                localStorage.clear();
+            }
 
             setSuccess(true);
 

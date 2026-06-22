@@ -262,13 +262,13 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                         <>
                             <button
                                 onClick={handleReview}
-                                className={`text - xs p-2 text-white/70 
-                                        cursor-pointer w-1/2  poppins-light 
-                                        tracking-widest 
+                                className={`text-sm p-2 text-white/70 
+                                        cursor-pointer w-1/3  poppins-light 
+                                        tracking-wider
                                         transition-opacity duration-1000
                                         bg-white/10 rounded`
                                 }>
-                                Submit Review
+                                Post Review
                             </button>
 
                         </>
@@ -283,6 +283,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
                     )
                 }
+
+                <hr className="w-full border-t border-white/10"/>
             </div>
 
 
@@ -290,8 +292,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
             {/*ALL USER REVIEWS*/}
             <div className="lg:w-250 montserrat-300">
                 <div className="lg:flex justify-between mb-2">
-                    <h1 className="uppercase tracking-[0.2em] text-[14px] lg:mb-2 font-medium">
-                        RECENT REVIEWS
+                    <h1 className="tracking-[0.2em] text-[14px] lg:mb-2 font-medium">
+                        Recent Reviews
                     </h1>
 
                     { last3Reviews.length >= 3 &&

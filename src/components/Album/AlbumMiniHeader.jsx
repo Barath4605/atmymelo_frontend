@@ -9,18 +9,15 @@ const AlbumMiniHeader = ({ albumImg, title, artist, year }) => {
                 <img
                     src={albumImg}
                     alt={title}
-                    className="w-24 h-24 rounded-md object-cover"
-                    style={{
-                        boxShadow: "0 10px 30px rgba(0,0,0,0.7)"
-                    }}
+                    className="lg:w-40 w-28 lg:h-40 h-28 rounded-md object-cover"
                 />
 
                 <div>
-                    <h1 className="text-3xl font-semibold poppins-medium-italic">
+                    <h1 className="text-4xl font-semibold space-grotesk-300">
                         {title}
                     </h1>
 
-                    <p className="text-sm text-white/50 mt-1">
+                    <p className="text-sm montserrat-300 text-white/50 mt-1">
                         {artist} · {year}
                     </p>
                 </div>

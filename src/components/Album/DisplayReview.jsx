@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 const StarIcon = ({ active }) => (
-    <svg viewBox="0 0 24 24" width="12" height="12"
+    <svg viewBox="0 0 24 24" width="20" height="20"
          style={{
              fill: active ? "rgb(251,191,36)" : "rgba(255,255,255,0.15)",
              filter: active ? "drop-shadow(0 0 3px rgba(251,191,36,0.6))" : "none",
@@ -31,7 +31,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
             const timePart = d.toLocaleTimeString("en-US", {
                 hour: "2-digit",
                 minute: "2-digit",
-                hour12: false, // 24hr format (cleaner)
+                hour12: true,
             });
 
             return `${datePart} • ${timePart}`.toUpperCase();
@@ -62,19 +62,19 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
                 lineHeight: "1.8",
             }}
         >
-            <div className="flex items-center justify-between px-3 py-2 border-b border-white/10">
-                <h1 className="montserrat-200 text-sm">{username}</h1>
+            <div className="lg:flex items-start lg:justify-start justify-between gap-5 px-3 py-2 border-b border-white/10">
+                <h1 className="poppins-light text-sm">Review by <span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
                 {rating > 0 && (
                     <div className="flex items-center gap-0.5">
                         {[1, 2, 3, 4, 5].map((star) => (
-                            <StarIcon key={star} active={star <= rating} />
+                            <StarIcon width={24} height={24} key={star} active={star <= rating} />
                         ))}
                     </div>
                 )}
             </div>
 
             <div className="m-3">
-                <p className="text-white/50 line-clamp-3 lg:text-md text-[14.5px] poppins-light">
+                <p className="text-white/80 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
                     {review}
                 </p>
                 {
@@ -82,12 +82,12 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
                 }
                 {formattedDate && (
                     <div className="flex items-center justify-between">
-                        <p className="text-[10px] mt-3 text-white/60 tracking-wide">
+                        <p className="text-[10px] poppins-light mt-3 text-white/60 tracking-wide">
                             {formattedDate}
                         </p>
                         <button
                             onClick={handleDeleteReview}
-                            className="p-1.5 cursor-pointer text-red-500 bg-red-500/20 rounded-full">
+                            className="p-1.5 cursor-pointer text-red-500 hover:bg-red-700/20 rounded-full">
                             <Trash2 size={14} />
                         </button>
                     </div>

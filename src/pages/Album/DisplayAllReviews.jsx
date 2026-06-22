@@ -52,7 +52,7 @@ const DisplayAllReviews = () => {
     if (!album) return null;
 
     return (
-        <main className="bg-black min-h-screen text-white">
+        <main className="min-h-screen text-white">
 
             <AlbumMiniHeader
                 albumImg={album.imageUrl}
