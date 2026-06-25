@@ -27,7 +27,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
                 onClick={() => setOpen(false)}
             >
               <div
-                  className="relative w-full max-w-lg max-h-[80vh] flex flex-col rounded-xl overflow-hidden"
+                  className="relative w-[75%] max-h-[80vh] flex flex-col rounded-xl overflow-hidden"
                   style={{
                     background: "rgba(18,18,18,0.95)",
                     border: "1px solid rgba(255,255,255,0.08)",

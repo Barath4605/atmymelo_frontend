@@ -62,6 +62,7 @@ const ArtistPage = () => {
                                         imgAlt={artist.name}
                                         artistBio={artist.bio}
                                         artistBorn={artist.born}
+                                        artistName={artist.name}
                                         artistDebut={artist.formed === null ? "-" : artist.formed}
                                         artistLabel={artist.label === null ? "Independent" : artist.label}
                           />

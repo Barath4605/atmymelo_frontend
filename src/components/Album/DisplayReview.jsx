@@ -1,7 +1,8 @@
-import React from 'react';
-import {deleteUserReview } from "../../../api/albumApi.js"
+import React, {useEffect, useState} from 'react';
+import {deleteUserReview} from "../../../api/albumApi.js"
+import {getTotalLikes, toggleLike} from "../../../api/reviewApi.js"
 import ReadMore from "../ReadMorePage.jsx";
-import { Trash2 } from "lucide-react";
+import {Heart, Trash2} from "lucide-react";
 import toast from "react-hot-toast";
 
 const StarIcon = ({ active }) => (
@@ -15,8 +16,12 @@ const StarIcon = ({ active }) => (
     </svg>
 );
 
-const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) => {
+const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onLike }) => {
 
+    const[totalLike, setTotalLikes] = useState(null);
+    const[liked, setLiked] = useState(false);
+
+    // DATE FORMATTING
     const formattedDate = date
         ? (() => {
             const d = new Date(date);
@@ -38,6 +43,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
         })()
         : null;
 
+    // DELETE REVIEW
     const handleDeleteReview = async () => {
         try {
             const res = await deleteUserReview(reviewId);
@@ -52,6 +58,36 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
         }
     };
 
+    // GET THE TOTAL LIKE FOR A REVIEW
+    const handleTotalLikes = async () => {
+        try {
+            const resp = await getTotalLikes(reviewId);
+            setTotalLikes(resp.totalLikes);
+            setLiked(resp.isLiked);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // TOGGLE LIKES FOR REVIEW
+    const handleLike = async (reviewId) => {
+        try {
+            await toggleLike(reviewId);
+
+            const resp = await getTotalLikes(reviewId);
+            setTotalLikes(resp.totalLikes);
+            setLiked(resp.isLiked)
+
+            onLike();
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        handleTotalLikes();
+    }, [reviewId]);
+
     return (
         <article
             className="rounded-lg"
@@ -62,8 +98,22 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
                 lineHeight: "1.8",
             }}
         >
-            <div className="lg:flex items-start lg:justify-start justify-between gap-5 px-3 py-2 border-b border-white/10">
+            <div className="lg:flex items-center lg:justify-start justify-between gap-5 px-3 pt-2 ">
+                {/*USERNAME*/}
                 <h1 className="poppins-light text-sm">Review by <span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
+            </div>
+
+            <div className="m-3">
+
+                {/*REVIEW TEXT*/}
+                <p className="text-white/80 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
+                    {review}
+                </p>
+                {
+                    review.length > 100 && <ReadMore customText="FULL REVIEW" bio={review} title={username} />
+                }
+
+                {/*REVIEW RATING*/}
                 {rating > 0 && (
                     <div className="flex items-center gap-0.5">
                         {[1, 2, 3, 4, 5].map((star) => (
@@ -71,18 +121,31 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete }) =
                         ))}
                     </div>
                 )}
-            </div>
 
-            <div className="m-3">
-                <p className="text-white/80 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
-                    {review}
-                </p>
-                {
-                    review.length > 100 && <ReadMore customText="FULL REVIEW" bio={review} title={username} />
-                }
+                {/*LIKES*/}
+                <div className="flex mt-5 items-end gap-1.5 montserrat-300 text-xs">
+                    <button onClick={() => handleLike(reviewId)}>
+                        <Heart size={16}
+                               className={
+                                    liked ?
+                                        `text-red-400 fill-red-400 cursor-pointer`
+                                        :
+                                        `text-gray-400 cursor-pointer`
+                               }
+                        />
+                    </button>
+                    <p className="text-[12px] text-white/45">
+                        {totalLike === 0 ? `No Likes Yet` : `${totalLike} Likes`}
+                    </p>
+                </div>
+
+                {/*LINE DIVIDER*/}
+                <p className="border-t border-t-white/10 mt-3"></p>
+
+                {/*DATE*/}
                 {formattedDate && (
-                    <div className="flex items-center justify-between">
-                        <p className="text-[10px] poppins-light mt-3 text-white/60 tracking-wide">
+                    <div className="flex items-center justify-between mt-1">
+                        <p className="text-[10px] poppins-light mx-1 text-white/60 tracking-wide">
                             {formattedDate}
                         </p>
                         <button

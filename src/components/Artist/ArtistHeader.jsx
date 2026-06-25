@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReadMore from "../ReadMorePage.jsx";
 
-const ArtistHeader = ({ artistImg, imgAlt, artistBio, artistLabel, artistDebut, artistBorn }) => {
+const ArtistHeader = ({ artistImg, imgAlt, artistName, artistBio, artistLabel, artistDebut, artistBorn }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -30,7 +30,7 @@ const ArtistHeader = ({ artistImg, imgAlt, artistBio, artistLabel, artistDebut, 
                         {artistBio}
                     </p>
                     {artistBio?.length > 200 && (
-                        <ReadMore customText="ARTIST BIO" bio={artistBio} />
+                        <ReadMore customText="ARTIST BIO" title={artistName} subtitle={artistLabel} bio={artistBio} />
                     )}
 
                     <div className="mt-5 mb-4 h-px"

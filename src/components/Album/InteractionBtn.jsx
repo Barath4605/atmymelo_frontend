@@ -117,10 +117,6 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
             setRating(newVal);
 
-            toast.success(
-                newVal === 0 ? "Rating removed" : `Rated ${newVal} out of 5`
-            );
-
         } catch {
             toast.error("Failed to rate");
         }
@@ -218,75 +214,64 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                                 </button>
                             );
                         })}
-                        {rating > 0 && (
-                            <span
-                                className="ml-2 montserrat-500 text-[12px] p-1 px-3 bg-black/75 rounded-full tracking-widest uppercase"
-                                style={{ color: "rgba(251,191,36,0.55" }}
-                            >
-                                {rating} / 5
-                            </span>
-                        )}
                     </div>
                 </div>
             </div>
 
             {/*TEXT AREA*/}
-            <div className="flex flex-col gap-2 lg:w-150">
-                <textarea
-                    rows={4}
-                    value={review}
-                    onChange={e => setReview(e.target.value)}
-                    maxLength={500}
-                    disabled={rating === 0}
-                    placeholder={rating > 0 ? `Write your thoughts` : `rate me first :)`}
-                    className={`w-full resize-none rounded-lg px-4 py-3 text-sm montserrat-300 outline-none
-                                transition-all duration-300 placeholder:opacity-30
-                                ${rating > 0 ? `cursor-text h-50` : `cursor-not-allowed h-12`}
-                                `}
-                    style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        color: "rgba(255,255,255,0.75)",
-                    }}
-                    onFocus={e => e.target.style.borderColor = "rgba(255,255,255,0.2)"}
-                    onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
-                />
-                {review.length > 0 && (
-                    <p className="text-xs text-right">
-                        {review.length} / 500
-                    </p>
-                )}
+            {rating !== 0 ?
+                <div className="flex flex-col gap-2 lg:w-150">
+                    <textarea
+                        rows={4}
+                        value={review}
+                        onChange={e => setReview(e.target.value)}
+                        disabled={rating === 0}
+                        placeholder={rating > 0 ? `Write your thoughts` : `rate me first :)`}
+                        className={` resize-none rounded-lg px-4 py-3 text-sm montserrat-300 outline-none
+                                    transition-all duration-300 placeholder:opacity-30
+                                    ${rating > 0 ? `cursor-text h-50` : `cursor-not-allowed h-12`}
+                                    `}
+                        style={{
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            color: "rgba(255,255,255,0.75)",
+                        }}
+                        onFocus={e => e.target.style.borderColor = "rgba(255,255,255,0.2)"}
+                        onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.08)"}
+                    />
 
-                {rating >! 0 ?
-                    (
-                        <>
-                            <button
-                                onClick={handleReview}
-                                className={`text-sm p-2 text-white/70 
+                    {rating >! 0 ?
+                        (
+                            <>
+                                <button
+                                    onClick={handleReview}
+                                    className={`text-sm p-2 text-white/70 
                                         cursor-pointer w-1/3  poppins-light 
                                         tracking-wider
                                         transition-opacity duration-1000
                                         bg-white/10 rounded`
-                                }>
-                                Post Review
-                            </button>
+                                    }>
+                                    Post Review
+                                </button>
 
-                        </>
-                    )
-                    :
-                    (
-                        <div className="transition-all ease-in-out duration-1000">
-                            <p className={`text-xs transition-opacity duration-500 text-gray-400`}>
-                                You have to rate the album before you can review it.
-                            </p>
-                        </div>
+                            </>
+                        )
+                        :
+                        (
+                            <div className="transition-all ease-in-out duration-1000">
+                                <p className={`text-xs transition-opacity duration-500 text-gray-400`}>
+                                    You have to rate the album before you can review it.
+                                </p>
+                            </div>
 
-                    )
-                }
+                        )
+                    }
 
-                <hr className="w-full border-t border-white/10"/>
-            </div>
-
+                    <hr className="w-full border-t border-white/10"/>
+                </div>
+                :
+                <div className=""></div>
+            }
 
 
             {/*ALL USER REVIEWS*/}
@@ -313,7 +298,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                     </p>
                 )}
 
-
+                {/*DISPLAY REVIEW*/}
                 <div className="flex flex-col gap-3">
                     {last3Reviews.map((r) => (
                         <DisplayReview
@@ -324,6 +309,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                             rating={r.rating}
                             date={r.createdAt}
                             onDelete={fetchLast3Reviews}
+                            onLike={fetchLast3Reviews}
                         />
                     ))}
                 </div>
