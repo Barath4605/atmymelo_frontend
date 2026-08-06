@@ -6,6 +6,7 @@ import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
 import Navbar from "../../components/Navbar.jsx";
 import ErrorPage from "../ErrorPage.jsx";
 import TrackList from "../../components/Tracklist/Tracklist.jsx";
+import Top3SongsUser from "../../components/Album/Top3SongsUser.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -70,6 +71,8 @@ const AlbumPage = () => {
                         />
 
                     <TrackList mbid={id} />
+
+                        <Top3SongsUser />
 
                     </main>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Heart, ListMusic } from "lucide-react";
 import toast from "react-hot-toast";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
     toggleFavorite,
     rateAlbum,
@@ -23,6 +25,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
     const [review, setReview] = React.useState("");
     const [last3Reviews, setLast3Reviews] = React.useState([]);
     const [allReviews, setAllReviews] = React.useState([]);
+    const [checked, setChecked] = React.useState(false);
+    const [selectedDate, setSelectedDate] = React.useState(null);
 
     const StarIcon = ({ active }) => (
         <svg
@@ -40,6 +44,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         </svg>
     );
 
+    // FETCH REVIEWS
     const fetchReviews = async () => {
         try {
             const res = await getUserReviews(mbid);
@@ -130,8 +135,19 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
 
         try {
-            const res = await submitReview(mbid, review);
-            if (!res.ok) throw new Error();
+            if(checked) {
+                if(selectedDate !== null) {
+                    const res = await submitReview(mbid, review, selectedDate);
+                    if (!res.ok) throw new Error();
+                    console.log(selectedDate);
+                } else {
+                    throw new Error("No Date Selected");
+                }
+            } else {
+                setSelectedDate(new Date());
+                const res = await submitReview(mbid, review, selectedDate);
+                if (!res.ok) throw new Error();
+            }
 
             toast.success("Review saved");
             setReview("");
@@ -163,7 +179,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
                 <button
                     onClick={handleLike}
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs tracking-widest uppercase transition-all duration-300"
+                    className="flex items-center justify-center gap-2 px-6 py-3
+                               rounded-full text-xs tracking-widest uppercase transition-all duration-300"
                     style={{
                         background: isLiked ? "rgba(248,113,113,0.12)" : "rgba(255,255,255,0.06)",
                         border: isLiked ? "1px solid rgba(248,113,113,0.4)" : "1px solid rgba(255,255,255,0.12)",
@@ -181,7 +198,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
                 <button
                     onClick={handleQueueClick}
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs tracking-widest uppercase transition-all duration-300"
+                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full
+                               text-xs tracking-widest uppercase transition-all duration-300"
                     style={{
                         background: isQueued ? "rgba(52,211,153,0.1)" : "rgba(255,255,255,0.06)",
                         border: isQueued ? "1px solid rgba(52,211,153,0.35)" : "1px solid rgba(255,255,255,0.12)",
@@ -243,17 +261,54 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                     {rating >! 0 ?
                         (
                             <>
-                                <button
-                                    onClick={handleReview}
-                                    className={`text-sm p-2 text-white/70 
+                                <div className="flex lg:flex-row flex-col lg:items-end justify-start gap-2">
+                                    <button
+                                        onClick={handleReview}
+                                        className={`text-sm p-2 text-white/70 
                                         cursor-pointer w-1/3  poppins-light 
                                         tracking-wider
                                         transition-opacity duration-1000
                                         bg-white/10 rounded`
-                                    }>
-                                    Post Review
-                                </button>
+                                        }>
+                                        Post Review
+                                    </button>
+                                    <div>
+                                        <div className="flex flex-col lg:flex-row lg:items-end justify-start lg:gap-2">
+                                            <label className="poppins-light text-sm text-gray-400">
+                                                Already Listened ? {" "}
+                                                <input
+                                                    type="checkbox"
+                                                    className="
+                                                        backdrop-blur-3xl
+                                                        h-2 w-7
+                                                        appearance-none
+                                                        rounded-full
+                                                        border-b border-red-400/75
+                                                        bg-red-600/75
+                                                        checked:bg-green-600/75
+                                                        checked:border-green-500/75
+                                                        cursor-pointer
+                                                      "
+                                                    checked={checked}
+                                                    onChange={(e) => setChecked(e.target.checked)}
+                                                />
+                                            </label>
 
+                                            {checked && (
+                                                <div style={{ marginTop: "10px" }}>
+                                                    <DatePicker
+                                                        className="poppins-light text-[12px] focus:outline-none
+                                                                    focus:ring-0 focus:border-transparent text-gray-400"
+                                                        selected={selectedDate}
+                                                        onChange={(date) => setSelectedDate(date)}
+                                                        dateFormat="dd/MM/yy"
+                                                        placeholderText="Select the date"
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
                             </>
                         )
                         :
@@ -310,6 +365,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                             date={r.createdAt}
                             onDelete={fetchLast3Reviews}
                             onLike={fetchLast3Reviews}
+                            relisten={r.relisten}
                         />
                     ))}
                 </div>

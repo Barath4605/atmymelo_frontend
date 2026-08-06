@@ -6,10 +6,49 @@ const getAuthHeader = () => ({
     "Content-Type": "application/json"
 });
 
+// GET TRACKLIST
 export const getTracklist = (mbid) =>
     fetch(`${TRACK_BASE}/${mbid}`, {
         headers: getAuthHeader()
     }).then(res => {
         if (!res.ok) throw new Error("Failed to fetch tracklist");
         return res.json();
-    });
+});
+
+export async function postUserTrackRating(tadbId, rating, favorite) {
+
+    const response = await fetch(
+        `${TRACK_BASE}/rate-track/${tadbId}`,
+        {
+            method: "POST",
+            headers: getAuthHeader(),
+            body: JSON.stringify({
+                rating,
+                favorite
+            })
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to save track rating");
+    }
+
+    return await response.json();
+}
+
+export const getUserTrackRating = async (tadbId) => {
+
+    const response = await fetch(
+        `${TRACK_BASE}/get-track-rating/${tadbId}`,
+        {
+            method: "GET",
+            headers: getAuthHeader()
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch track rating");
+    }
+
+    return await response.json();
+};

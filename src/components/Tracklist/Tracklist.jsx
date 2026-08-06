@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTracklist } from "../../../api/tracklistApi.js";
 import {Loader2} from "lucide-react";
+import TrackRating from "./TrackRating.jsx";
 
 const TrackList = ({ mbid}) => {
     const [tracklist, setTracklist] = useState([]);
@@ -19,11 +20,13 @@ const TrackList = ({ mbid}) => {
             .finally(() => setLoading(false));
     }, [mbid]);
 
+    // CONVERT MILLISECOND -> MIN:SEC
     const formatDuration = (ms) => {
         const s = Math.floor(Number(ms) / 1000);
         return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
     };
 
+    // LOADING SCREEN
     if (loading) return (
         <div className="flex items-center montserrat-200 justify-center py-12">
             <span className="text-sm text-zinc-400">Loading tracks</span>
@@ -31,12 +34,14 @@ const TrackList = ({ mbid}) => {
         </div>
     );
 
+    // ERROR SCREEN
     if (error) return (
         <div className="flex items-center justify-center py-12">
             <span className="text-sm text-red-400">{error}</span>
         </div>
     );
 
+    // EMPTY TRACKLIST
     if (!tracklist.length) return (
         <div className="flex items-center justify-center py-12">
             <span className="text-sm text-zinc-400">No tracks found.</span>
@@ -65,21 +70,31 @@ const TrackList = ({ mbid}) => {
                         transition-colors duration-300
                         dark:border-zinc-800 last:border-none"
                     >
-                        <span className="w-5 text-right text-xs text-zinc-400 shrink-0">
-                            {index + 1}
+                        <span className="w-5 text-right text-xs flex items-start text-zinc-400 shrink-0">
+                            {index + 1}.
                         </span>
 
-                        <div className="flex-1 min-w-0">
-                            <p className="text-sm text-zinc-900 dark:text-zinc-100 truncate">
-                                {track.strTrack}
+                        <div className="flex-1 flex-col lg:flex-row lg:items-center lg:gap-0 items-start gap-1">
+                            <div className="flex-1 min-w-0">
+                                <div>
+                                    <p className="lg:text-sm text-md text-zinc-900 dark:text-zinc-100 lg:w-[60%]
+                                                 transition-all ease-in-out duration-100">
+                                        {track.strTrack}
+                                    </p>
+                                    <p>
 
-                            </p>
-                            <p className="text-xs text-zinc-400 mt-0.5">{track.strArtist}</p>
+                                    </p>
+                                </div>
+                                <p className="text-xs text-zinc-400 mt-0.5 lg:w-[40%] lg:hover:w-full transition-all ease-in-out duration-100">{track.strArtist}</p>
+                            </div>
+
+                            <span className="text-xs space-grotesk-300 text-zinc-400 shrink-0">
+                                {formatDuration(track.intDuration)}
+                            </span>
+
+                            <TrackRating tadb={track.idTrack} />
+
                         </div>
-
-                        <span className="text-xs space-grotesk-300 text-zinc-400 shrink-0">
-                            {formatDuration(track.intDuration)}
-                        </span>
                     </li>
                 ))}
             </ul>

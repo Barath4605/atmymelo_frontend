@@ -81,6 +81,7 @@ const DisplayAllReviews = () => {
                             date={r.createdAt}
                             reviewId={r.reviewId}
                             onDelete={fetchReviews}
+                            relisten={r.relisten}
                         />
                     ))}
                 </div>

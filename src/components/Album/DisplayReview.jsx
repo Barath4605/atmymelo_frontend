@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {deleteUserReview} from "../../../api/albumApi.js"
 import {getTotalLikes, toggleLike} from "../../../api/reviewApi.js"
 import ReadMore from "../ReadMorePage.jsx";
-import {Heart, Trash2} from "lucide-react";
+import {Heart, Trash2, Repeat } from "lucide-react";
 import toast from "react-hot-toast";
 
 const StarIcon = ({ active }) => (
@@ -16,10 +16,12 @@ const StarIcon = ({ active }) => (
     </svg>
 );
 
-const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onLike }) => {
+const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onLike, relisten }) => {
 
     const[totalLike, setTotalLikes] = useState(null);
     const[liked, setLiked] = useState(false);
+
+    console.log(relisten)
 
     // DATE FORMATTING
     const formattedDate = date
@@ -33,13 +35,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 year: "numeric",
             });
 
-            const timePart = d.toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true,
-            });
-
-            return `${datePart} • ${timePart}`.toUpperCase();
+            return `${datePart}`.toUpperCase();
         })()
         : null;
 
@@ -98,9 +94,12 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 lineHeight: "1.8",
             }}
         >
-            <div className="lg:flex items-center lg:justify-start justify-between gap-5 px-3 pt-2 ">
+            <div className="flex items-center lg:justify-start justify-between gap-5 px-3 pt-2 ">
                 {/*USERNAME*/}
                 <h1 className="poppins-light text-sm">Review by <span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
+                {relisten && (
+                    <span className="flex items-center gap-2 text-xs text-white/85"><Repeat size={15} className="text-gray-400/75 text-sm font-light" /> Re-Listened</span>
+                )}
             </div>
 
             <div className="m-3">
@@ -143,18 +142,21 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 <p className="border-t border-t-white/10 mt-3"></p>
 
                 {/*DATE*/}
-                {formattedDate && (
-                    <div className="flex items-center justify-between mt-1">
-                        <p className="text-[10px] poppins-light mx-1 text-white/60 tracking-wide">
-                            {formattedDate}
-                        </p>
-                        <button
-                            onClick={handleDeleteReview}
-                            className="p-1.5 cursor-pointer text-red-500 hover:bg-red-700/20 rounded-full">
-                            <Trash2 size={14} />
-                        </button>
-                    </div>
-                )}
+                <div className="flex items-center justify-between mt-1">
+                    {formattedDate && (
+                        <div>
+                            <p className="text-[10px] poppins-light mx-1 text-white/60 tracking-wide">
+                                {formattedDate}
+                            </p>
+                        </div>
+                    )}
+                    {/*DELETE*/}
+                    <button
+                        onClick={handleDeleteReview}
+                        className="p-1.5 cursor-pointer text-red-500 hover:bg-red-700/20 rounded-full">
+                        <Trash2 size={14} />
+                    </button>
+                </div>
             </div>
         </article>
     );

@@ -27,12 +27,13 @@ export const toggleQueue = (mbid, queue) =>
         body: JSON.stringify({ queue })
     });
 
-export const submitReview = (mbid, review) =>
+export const submitReview = (mbid, review, date) =>
     fetch(`${ALBUM_BASE}/${mbid}/review`, {
         method: "POST",
         headers: getAuthHeader(),
-        body: JSON.stringify({ review })
+        body: JSON.stringify({ review, date })
     });
+
 
 export const getUserReviews = (mbid) =>
     fetch(`${ALBUM_BASE}/${mbid}/all-reviews`, {
