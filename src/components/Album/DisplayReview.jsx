@@ -29,7 +29,6 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
             const d = new Date(date);
 
             const datePart = d.toLocaleDateString("en-US", {
-                weekday: "short",
                 month: "long",
                 day: "numeric",
                 year: "numeric",
@@ -80,51 +79,54 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
         }
     };
 
+    // UPDATE LIKES
     useEffect(() => {
         handleTotalLikes();
     }, [reviewId]);
 
     return (
         <article
-            className="rounded-lg"
-            style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: "1.8",
-            }}
+            className="border-b border-zinc-500"
         >
-            <div className="flex items-center lg:justify-start justify-between gap-5 px-3 pt-2 ">
-                {/*USERNAME*/}
-                <h1 className="poppins-light text-sm">Review by <span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
-                {relisten && (
-                    <span className="flex items-center gap-2 text-xs text-white/85"><Repeat size={15} className="text-gray-400/75 text-sm font-light" /> Re-Listened</span>
-                )}
+            <div className="flex items-center lg:justify-start justify-between gap-5 pt-2 ">
+                <div className={`flex justify-between gap-2 w-full`}>
+                    <div className={`flex items-center justify-between gap-4`}>
+                        {/*USERNAME*/}
+                        <h1 className="poppins-light text-sm"><span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
+
+                        {/*REVIEW RATING*/}
+                        {rating > 0 && (
+                            <div className="flex items-center gap-0.5">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <StarIcon width={24} height={24} key={star} active={star <= rating} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div>
+                        {/*RELISTEN INDICATOR*/}
+                        {relisten && (
+                            <span className="flex items-center gap-2 text-xs text-white/85"><Repeat size={15} className="text-gray-400/75 text-sm font-light" /> Re-Listened</span>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            <div className="m-3">
+            <div className="m-1">
 
                 {/*REVIEW TEXT*/}
-                <p className="text-white/80 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
+                <p className="text-white/80 my-2 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
                     {review}
                 </p>
                 {
                     review.length > 100 && <ReadMore customText="FULL REVIEW" bio={review} title={username} />
                 }
 
-                {/*REVIEW RATING*/}
-                {rating > 0 && (
-                    <div className="flex items-center gap-0.5">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <StarIcon width={24} height={24} key={star} active={star <= rating} />
-                        ))}
-                    </div>
-                )}
-
                 {/*LIKES*/}
-                <div className="flex mt-5 items-end gap-1.5 montserrat-300 text-xs">
+                <div className="flex items-center gap-1.5 montserrat-300 text-xs">
                     <button onClick={() => handleLike(reviewId)}>
-                        <Heart size={16}
+                        <Heart size={14}
                                className={
                                     liked ?
                                         `text-red-400 fill-red-400 cursor-pointer`
@@ -133,19 +135,16 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                                }
                         />
                     </button>
-                    <p className="text-[12px] text-white/45">
+                    <p className="text-[11px] text-white/45">
                         {totalLike === 0 ? `No Likes Yet` : `${totalLike} Likes`}
                     </p>
                 </div>
 
-                {/*LINE DIVIDER*/}
-                <p className="border-t border-t-white/10 mt-3"></p>
-
                 {/*DATE*/}
-                <div className="flex items-center justify-between mt-1">
+                <div className="flex items-center justify-between">
                     {formattedDate && (
                         <div>
-                            <p className="text-[10px] poppins-light mx-1 text-white/60 tracking-wide">
+                            <p className="text-[9px] mx-0.5 poppins-light text-white/60 tracking-wide">
                                 {formattedDate}
                             </p>
                         </div>

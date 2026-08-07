@@ -70,9 +70,7 @@ const AlbumPage = () => {
                             albumId={id}
                         />
 
-                    <TrackList mbid={id} />
-
-                        <Top3SongsUser />
+                        <TrackList mbid={id} />
 
                     </main>
 

@@ -144,8 +144,8 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                     throw new Error("No Date Selected");
                 }
             } else {
-                setSelectedDate(new Date());
-                const res = await submitReview(mbid, review, selectedDate);
+                const today = new Date();
+                const res = await submitReview(mbid, review, today);
                 if (!res.ok) throw new Error();
             }
 
@@ -333,7 +333,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
             <div className="lg:w-250 montserrat-300">
                 <div className="lg:flex justify-between mb-2">
                     <h1 className="tracking-[0.2em] text-[14px] lg:mb-2 font-medium">
-                        Recent Reviews
+                        Your Latest Reviews
                     </h1>
 
                     { last3Reviews.length >= 3 &&
@@ -348,7 +348,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                 </div>
 
                 {last3Reviews.length === 0 && (
-                    <p className="text-white/40 tracking-widest text-xs">
+                    <p className="text-white/40 tracking-widest text-xs text-center">
                         No reviews yet
                     </p>
                 )}
