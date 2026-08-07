@@ -11,7 +11,7 @@ export async function toggleLike(reviewId) {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-        `${API_URL}/reviews/${reviewId}/likes`,
+        `${API_URL}/api/albums/reviews/${reviewId}/likes`,
         {
             method: "POST",
             headers: {
@@ -32,7 +32,7 @@ export async function toggleLike(reviewId) {
 export async function getTotalLikes(reviewId) {
 
     const resp = await fetch(
-        `${API_URL}/reviews/${reviewId}/likes/total-likes`,
+        `${API_URL}/api/albums/reviews/${reviewId}/likes/total-likes`,
         {
             method: "GET",
             headers: getAuthHeader(),
