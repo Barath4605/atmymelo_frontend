@@ -27,7 +27,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
                 onClick={() => setOpen(false)}
             >
               <div
-                  className="relative w-[75%] max-h-[80vh] flex flex-col rounded-xl overflow-hidden"
+                  className="relative lg:w-[75%] w-full max-h-[80vh] flex flex-col rounded-xl overflow-hidden"
                   style={{
                     background: "rgba(18,18,18,0.95)",
                     border: "1px solid rgba(255,255,255,0.08)",
@@ -37,7 +37,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
               >
                 {/* Header */}
                 <div
-                    className="flex items-start justify-between px-7 pt-7 pb-5 flex-shrink-0"
+                    className="flex items-start justify-between lg:px-7 px-4 pt-7 pb-5 flex-shrink-0"
                     style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
                 >
                   <div className="flex flex-col gap-1">
@@ -72,7 +72,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
                 </div>
 
                 {/* Scrollable bio */}
-                <div className="overflow-y-auto px-7 py-6">
+                <div className="overflow-y-auto lg:px-7 px-4 py-6">
                   <p
                       className="montserrat-300 text-sm leading-8"
                       style={{ color: "rgba(255,255,255,0.55)" }}

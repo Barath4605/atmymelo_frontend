@@ -3,7 +3,7 @@ const getAuthHeader = () => ({
     "Content-Type": "application/json"
 });
 
-const BASE_URL = `http://localhost:8080/api/albums/reviews`
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 
 // TOGGLE LIKES FOR THE REVIEW

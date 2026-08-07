@@ -81,7 +81,7 @@ const TrackList = ({ mbid}) => {
                     <li
                         key={track.strMusicBrainzAlbumID + index}
                         className={`flex montserrat-400 items-center gap-3 p-2.5 rounded-sm
-                        ${track.idTrack === topTrackId ? `bg-red-400/70 backdrop-blur-3xl border border-red-400/60 text-black` : `dark:hover:bg-zinc-80 border-b dark:border-zinc-800`}
+                        ${track.idTrack === topTrackId ? `bg-linear-to-bl from-red-400/55 via-red-400/60 to-red-500/65 backdrop-blur-3xl text-black` : `dark:hover:bg-zinc-80 border-b dark:border-zinc-800`}
                         transition-colors duration-300
                          last:border-none`}
                     >
