@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { getTracklist } from "../../../api/tracklistApi.js";
 import {Loader2} from "lucide-react";
 import TrackRating from "./TrackRating.jsx";
+import {
+    getTracklist,
+    getTopRatedTrack
+} from "../../../api/tracklistApi.js";
 
 const TrackList = ({ mbid}) => {
     const [tracklist, setTracklist] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [topTrackId, setTopTrackId] = useState(null);
 
+    // GET TOP TRACK USE EFFECT
+    useEffect(() => {
+
+        if(!mbid) return;
+
+        getTopRatedTrack(mbid)
+            .then(id => setTopTrackId(id))
+            .catch(err => console.log(err));
+
+    }, [mbid]);
+
+    // GET TRACKLIST USE EFFECT
     useEffect(() => {
         if (!mbid) return;
 
@@ -64,35 +80,34 @@ const TrackList = ({ mbid}) => {
                 {tracklist.map((track, index) => (
                     <li
                         key={track.strMusicBrainzAlbumID + index}
-                        className="flex montserrat-400 items-center gap-3 p-2.5 border-b
-                        border-zinc-100 rounded-sm cursor-pointer
-                        hover:bg-zinc-100 dark:hover:bg-zinc-800
+                        className={`flex montserrat-400 items-center gap-3 p-2.5 rounded-sm
+                        ${track.idTrack === topTrackId ? `bg-red-400/70 backdrop-blur-3xl border border-red-400/60 text-black` : `dark:hover:bg-zinc-80 border-b dark:border-zinc-800`}
                         transition-colors duration-300
-                        dark:border-zinc-800 last:border-none"
+                         last:border-none`}
                     >
-                        <span className="w-5 text-right text-xs flex items-start text-zinc-400 shrink-0">
+                        <span className={`w-5 text-right text-xs flex items-start ${track.idTrack === topTrackId ? `text-white` : `text-zinc-400`} shrink-0`}>
                             {index + 1}.
                         </span>
 
                         <div className="flex-1 flex-col lg:flex-row lg:items-center lg:gap-0 items-start gap-1">
                             <div className="flex-1 min-w-0">
                                 <div>
-                                    <p className="lg:text-sm text-md text-zinc-900 dark:text-zinc-100 lg:w-[60%]
-                                                 transition-all ease-in-out duration-100">
+                                    <p className={`lg:text-sm text-md ${track.idTrack === topTrackId ? `text-white` : `text-zinc-100`} lg:w-[60%]
+                                        transition-all ease-in-out duration-100`}>
                                         {track.strTrack}
                                     </p>
                                     <p>
 
                                     </p>
                                 </div>
-                                <p className="text-xs text-zinc-400 mt-0.5 lg:w-[40%] lg:hover:w-full transition-all ease-in-out duration-100">{track.strArtist}</p>
+                                <p className={`text-xs ${track.idTrack === topTrackId ? `text-white/80` : `text-zinc-400`} mt-0.5 lg:w-[40%] lg:hover:w-full transition-all ease-in-out duration-100`}>{track.strArtist}</p>
                             </div>
 
-                            <span className="text-xs space-grotesk-300 text-zinc-400 shrink-0">
+                            <span className={`text-xs space-grotesk-300 ${track.idTrack === topTrackId ? `text-white/75` : `text-zinc-400`} shrink-0`}>
                                 {formatDuration(track.intDuration)}
                             </span>
 
-                            <TrackRating tadb={track.idTrack} />
+                            <TrackRating tadb={track.idTrack} topTrackId={topTrackId} />
 
                         </div>
                     </li>

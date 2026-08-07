@@ -15,6 +15,7 @@ export const getTracklist = (mbid) =>
         return res.json();
 });
 
+// USER POST TRACK RATING
 export async function postUserTrackRating(tadbId, rating, favorite) {
 
     const response = await fetch(
@@ -36,6 +37,7 @@ export async function postUserTrackRating(tadbId, rating, favorite) {
     return await response.json();
 }
 
+// GET THE USER'S TRACK RATING AND GLOBAL AVG RATING
 export const getUserTrackRating = async (tadbId) => {
 
     const response = await fetch(
@@ -51,4 +53,21 @@ export const getUserTrackRating = async (tadbId) => {
     }
 
     return await response.json();
+};
+
+// GET THE TOP RATED TRACK FROM THE ALBUM
+export const getTopRatedTrack = async (albumId) => {
+
+    const response = await fetch(
+        `${TRACK_BASE}/get-highest-avg-song/${albumId}`,
+        {
+            headers: getAuthHeader()
+        }
+    );
+
+    if(!response.ok){
+        throw new Error("Failed to fetch top rated track");
+    }
+
+    return await response.text();
 };
