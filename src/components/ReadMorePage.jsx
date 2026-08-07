@@ -14,7 +14,7 @@ const ReadMore = ({ title, subtitle, bio, customText }) => {
       <>
         <button
             onClick={() => setOpen(true)}
-            className="montserrat-300 uppercase mt-2 cursor-pointer text-[10px] tracking-widest w-fit pb-px border-b border-white/30 transition-opacity hover:opacity-100"
+            className="montserrat-300 uppercase cursor-pointer text-[10px] tracking-widest w-fit pb-px border-b border-white/30 transition-opacity hover:opacity-100"
             style={{ color: "rgba(255,255,255,0.35)" }}
         >
             {customText}

@@ -6,6 +6,7 @@ const getAuthHeader = () => ({
     "Content-Type": "application/json"
 });
 
+// RATE ALBUM
 export const rateAlbum = (mbid, rating) =>
     fetch(`${ALBUM_BASE}/${mbid}/rate`, {
         method: "POST",
@@ -13,6 +14,7 @@ export const rateAlbum = (mbid, rating) =>
         body: JSON.stringify({ rating })
     });
 
+// TOGGLE FAV
 export const  toggleFavorite = (mbid, favorite) =>
     fetch(`${ALBUM_BASE}/${mbid}/favorite`, {
         method: "POST",
@@ -20,6 +22,7 @@ export const  toggleFavorite = (mbid, favorite) =>
         body: JSON.stringify({ favorite })
     });
 
+// TOGGLE QUEUE
 export const toggleQueue = (mbid, queue) =>
     fetch(`${ALBUM_BASE}/${mbid}/queue`, {
         method: "POST",
@@ -27,6 +30,7 @@ export const toggleQueue = (mbid, queue) =>
         body: JSON.stringify({ queue })
     });
 
+// SUBMIT A REVIEW
 export const submitReview = (mbid, review, date) =>
     fetch(`${ALBUM_BASE}/${mbid}/review`, {
         method: "POST",
@@ -34,14 +38,15 @@ export const submitReview = (mbid, review, date) =>
         body: JSON.stringify({ review, date })
     });
 
-
+// GET USER'S REVIEW
 export const getUserReviews = (mbid) =>
-    fetch(`${ALBUM_BASE}/${mbid}/all-reviews`, {
+    fetch(`${ALBUM_BASE}/${mbid}/all-user-reviews`, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
     });
 
+// GET LAST 3 USER REVIEWS
 export const getLast3UserReviews = (mbid) =>
     fetch(`${ALBUM_BASE}/${mbid}/last-3`, {
         headers: {
@@ -49,6 +54,7 @@ export const getLast3UserReviews = (mbid) =>
         }
     });
 
+// DELETE A USER'S REVIEW
 export const deleteUserReview = (reviewid) => {
     return fetch(`${ALBUM_BASE}/delete-review/${reviewid}`, {
         method: "DELETE",
@@ -57,3 +63,11 @@ export const deleteUserReview = (reviewid) => {
         }
     })
 }
+
+// GET GLOBAL REVIEWS SORTED BY POPULARITY (likes)
+export const getAllReview = (mbid) =>
+    fetch(`${ALBUM_BASE}/${mbid}/all-reviews`, {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+        }
+    })

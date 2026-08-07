@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar.jsx";
 import ErrorPage from "../ErrorPage.jsx";
 import TrackList from "../../components/Tracklist/Tracklist.jsx";
 import Top3SongsUser from "../../components/Album/Top3SongsUser.jsx";
+import PopularReviews from "../../components/Album/PopularReviews.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -71,6 +72,8 @@ const AlbumPage = () => {
                         />
 
                         <TrackList mbid={id} />
+
+                        <PopularReviews title={album.title} mbid={id} />
 
                     </main>
 

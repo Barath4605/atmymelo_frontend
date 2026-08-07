@@ -279,16 +279,15 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                                                 <input
                                                     type="checkbox"
                                                     className="
-                                                        backdrop-blur-3xl
-                                                        h-2 w-7
+                                                        h-2.5 w-2.5
                                                         appearance-none
                                                         rounded-full
-                                                        border-b border-red-400/75
-                                                        bg-red-600/75
-                                                        checked:bg-green-600/75
-                                                        checked:border-green-500/75
+                                                        bg-red-400/50
                                                         cursor-pointer
-                                                      "
+                                                        transition-all duration-300
+                                                        checked:bg-green-200/50
+                                                        checked:shadow-[0_0_12px_rgba(255,255,255,0.15)]
+                                                    "
                                                     checked={checked}
                                                     onChange={(e) => setChecked(e.target.checked)}
                                                 />
@@ -339,7 +338,7 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
                     { last3Reviews.length >= 3 &&
                         (
                             <button
-                                onClick={() => nav(`/albums/${mbid}/all-reviews`)}
+                                onClick={() => nav(`/albums/${mbid}/all-user-reviews`)}
                                 className>
                                 <h1 className="text-xs pb-px cursor-pointer border-b">OPEN ALL REVIEWS</h1>
                             </button>

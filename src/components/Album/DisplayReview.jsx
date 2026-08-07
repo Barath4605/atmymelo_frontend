@@ -21,6 +21,8 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
     const[totalLike, setTotalLikes] = useState(null);
     const[liked, setLiked] = useState(false);
 
+    const USER_NAME = localStorage.getItem("username");
+
     console.log(relisten)
 
     // DATE FORMATTING
@@ -92,7 +94,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 <div className={`flex justify-between gap-2 w-full`}>
                     <div className={`flex items-center justify-between gap-4`}>
                         {/*USERNAME*/}
-                        <h1 className="poppins-light text-sm"><span className="montserrat-200 border-b border-b-white/25 cursor-pointer">{username}</span></h1>
+                        <h1 className="poppins-light text-sm"><span className="montserrat-200 border-b ml-1 border-b-white/25 cursor-pointer">{username}</span></h1>
 
                         {/*REVIEW RATING*/}
                         {rating > 0 && (
@@ -115,18 +117,22 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
 
             <div className="m-1">
 
-                {/*REVIEW TEXT*/}
-                <p className="text-white/80 my-2 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
-                    {review}
-                </p>
-                {
-                    review.length > 100 && <ReadMore customText="FULL REVIEW" bio={review} title={username} />
-                }
+                <div>
+                    {/*REVIEW TEXT*/}
+                    <div className={`lg:flex items-end justify-between`}>
+                        <p className="text-white/80 my-2 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
+                            {review}
+                        </p>
+                        {
+                            review.length > 400 && <div className="mb-2 text-xs"><ReadMore customText="FULL REVIEW" bio={review} title={username} /></div>
+                        }
+                    </div>
+                </div>
 
                 {/*LIKES*/}
-                <div className="flex items-center gap-1.5 montserrat-300 text-xs">
+                <div className="flex items-center gap-1.5 mt-5 montserrat-300 text-xs">
                     <button onClick={() => handleLike(reviewId)}>
-                        <Heart size={14}
+                        <Heart size={15}
                                className={
                                     liked ?
                                         `text-red-400 fill-red-400 cursor-pointer`
@@ -135,8 +141,8 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                                }
                         />
                     </button>
-                    <p className="text-[11px] text-white/45">
-                        {totalLike === 0 ? `No Likes Yet` : `${totalLike} Likes`}
+                    <p className="text-[12px] text-white/45">
+                        {totalLike === 0 ? `No Likes Yet` : totalLike === 1 ? `${totalLike} Like` : `${totalLike} Likes`}
                     </p>
                 </div>
 
@@ -144,17 +150,21 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 <div className="flex items-center justify-between">
                     {formattedDate && (
                         <div>
-                            <p className="text-[9px] mx-0.5 poppins-light text-white/60 tracking-wide">
+                            <p className="text-[9px] py-1.5 mx-0.5 poppins-light text-white/60 tracking-wide">
                                 {formattedDate}
                             </p>
                         </div>
                     )}
                     {/*DELETE*/}
-                    <button
-                        onClick={handleDeleteReview}
-                        className="p-1.5 cursor-pointer text-red-500 hover:bg-red-700/20 rounded-full">
-                        <Trash2 size={14} />
-                    </button>
+
+                    {USER_NAME === username && (
+                        <button
+                            onClick={handleDeleteReview}
+                            className="cursor-pointer text-red-500 hover:bg-red-700/20 rounded-full">
+                            <Trash2 size={14} />
+                        </button>
+                    )}
+
                 </div>
             </div>
         </article>
