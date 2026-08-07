@@ -3,7 +3,7 @@ const getAuthHeader = () => ({
     "Content-Type": "application/json"
 });
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 
 // TOGGLE LIKES FOR THE REVIEW
@@ -11,7 +11,7 @@ export async function toggleLike(reviewId) {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-        `${BASE_URL}/${reviewId}/likes`,
+        `${API_URL}/${reviewId}/likes`,
         {
             method: "POST",
             headers: {
@@ -32,7 +32,7 @@ export async function toggleLike(reviewId) {
 export async function getTotalLikes(reviewId) {
 
     const resp = await fetch(
-        `${BASE_URL}/${reviewId}/likes/total-likes`,
+        `${API_URL}/${reviewId}/likes/total-likes`,
         {
             method: "GET",
             headers: getAuthHeader(),
