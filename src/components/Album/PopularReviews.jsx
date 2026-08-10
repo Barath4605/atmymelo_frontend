@@ -29,7 +29,7 @@ const PopularReviews = ({title, mbid}) => {
     }
 
   return (
-      <div className="lg:w-275 montserrat-300 m-auto text-white">
+      <div className="lg:w-275 montserrat-300 m-3 lg:m-auto text-white">
           <div className="lg:flex justify-between mb-2">
               <h1 className="tracking-[0.2em] text-[14px] lg:mb-2 font-medium">
                   Popular Reviews for {title}
@@ -51,7 +51,7 @@ const PopularReviews = ({title, mbid}) => {
                           />
                       ))
                   ) : (
-                      <p className="text-white/40 my-3 tracking-widest text-xs text-center">
+                      <p className="text-white/40 my-1 tracking-widest text-xs text-center">
                           No reviews yet
                       </p>
                   )

@@ -120,7 +120,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                 <div>
                     {/*REVIEW TEXT*/}
                     <div className={`lg:flex items-end justify-between`}>
-                        <p className="text-white/80 my-2 line-clamp-3 lg:text-md text-[16.5px] poppins-light">
+                        <p className="text-white/80 my-2 line-clamp-3 lg:text-md text-[14.5px] poppins-light">
                             {review}
                         </p>
                         {

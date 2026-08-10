@@ -17,11 +17,10 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
 
     return (
         <div
+            className="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]"
             style={{
                 position: "relative",
                 width: "100%",
-                // Aspect ratio — cinematic, bleeds to full width
-                aspectRatio: "21/9",
                 overflow: "hidden",
             }}
         >
