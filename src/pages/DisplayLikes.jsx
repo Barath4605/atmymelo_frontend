@@ -161,11 +161,11 @@ const DisplayLikes = () => {
 
                             <div className="flex items-center gap-4 min-w-0">
 
-                                <div className="min-w-0">
+                                <div className="">
 
-                                    <p className="text-sm hover:border-gray-500/75 cursor-pointer border-b
+                                    <p className=" text-sm cursor-pointer w-fit border-b border-white/20 hover:border-white/70UI
                                                   lg:text-white/80 hover:text-white/95
-                                                border-gray-500/25 sm:text-base montserrat-400 truncate"
+                                                   sm:text-base montserrat-400"
                                     >
                                         {user.username}
                                     </p>
