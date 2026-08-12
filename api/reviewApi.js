@@ -45,3 +45,29 @@ export async function getTotalLikes(reviewId) {
 
     return resp.json();
 }
+
+// GET USERS WHO LIKED THE REVIEW
+export async function getLikedUsers(reviewId) {
+    const resp = await fetch(
+        `${API_URL}/api/albums/reviews/${reviewId}/likes/liked-users`,
+        {
+            method: "GET",
+            headers: getAuthHeader(),
+        }
+    );
+
+    if (!resp.ok) {
+        const errorText = await resp.text();
+        console.error("getLikedUsers failed:", {
+            status: resp.status,
+            statusText: resp.statusText,
+            body: errorText
+        });
+
+        throw new Error(
+            `Failed to load users who liked the review: ${resp.status}`
+        );
+    }
+
+    return resp.json();
+}

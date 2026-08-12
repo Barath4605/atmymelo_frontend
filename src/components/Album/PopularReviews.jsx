@@ -20,7 +20,6 @@ const PopularReviews = ({title, mbid}) => {
 
             const data = await res.json();
 
-            console.log(data);
 
             setPopularReview(data);
         } catch (e) {

@@ -4,6 +4,7 @@ import {getTotalLikes, toggleLike} from "../../../api/reviewApi.js"
 import ReadMore from "../ReadMorePage.jsx";
 import {Heart, Trash2, Repeat } from "lucide-react";
 import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 
 const StarIcon = ({ active }) => (
     <svg viewBox="0 0 24 24" width="20" height="20"
@@ -23,6 +24,8 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
 
     const USER_NAME = localStorage.getItem("username");
 
+    const nav = useNavigate();
+
     console.log(relisten)
 
     // DATE FORMATTING
@@ -39,6 +42,16 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
             return `${datePart}`.toUpperCase();
         })()
         : null;
+
+    function navigateToLikePage(totalLike) {
+        if(totalLike === 0) return;
+
+        nav(`/reviews/${reviewId}/liked-by`, {
+            state: {
+                username: username,
+            }
+        });
+    }
 
     // DELETE REVIEW
     const handleDeleteReview = async () => {
@@ -141,7 +154,7 @@ const DisplayReview = ({ username, review, rating, date, reviewId, onDelete, onL
                                }
                         />
                     </button>
-                    <p className="text-[12px] text-white/45">
+                    <p className="cursor-pointer text-[12px] text-white/45" onClick={() => navigateToLikePage(totalLike)}>
                         {totalLike === 0 ? `No Likes Yet` : totalLike === 1 ? `${totalLike} Like` : `${totalLike} Likes`}
                     </p>
                 </div>

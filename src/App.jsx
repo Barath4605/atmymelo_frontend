@@ -13,6 +13,7 @@ import DisplayAllReviews from "./pages/Album/DisplayAllReviews.jsx";
 import FavoritePage from "./pages/FavoritePage.jsx";
 import QueuePage from "./pages/QueuePage.jsx";
 import GlobalPage from "./pages/GlobalPage.jsx";
+import DisplayLikes from "./pages/DisplayLikes.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/favorites" element={<FavoritePage />} />
         <Route path="/deck" element={<QueuePage />} />
         <Route path="/global" element={<GlobalPage />} />
+        <Route path="/reviews/:reviewId/liked-by" element={<DisplayLikes />} />
       </Routes>
     </BrowserRouter>
   )
