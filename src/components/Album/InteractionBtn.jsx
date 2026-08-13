@@ -135,24 +135,31 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
         }
 
         try {
-            if(checked) {
-                if(selectedDate !== null) {
+            if (checked) {
+                if (selectedDate !== null) {
                     const res = await submitReview(mbid, review, selectedDate);
+
                     if (!res.ok) throw new Error();
-                    console.log(selectedDate);
+
                 } else {
                     throw new Error("No Date Selected");
                 }
             } else {
                 const today = new Date();
+
                 const res = await submitReview(mbid, review, today);
+
                 if (!res.ok) throw new Error();
             }
 
             toast.success("Review saved");
+
             setReview("");
 
             await fetchLast3Reviews();
+
+            // Tell PopularReviews to refresh
+            window.dispatchEvent(new Event("reviewsChanged"));
 
         } catch {
             toast.error("Failed to submit review");
@@ -161,7 +168,21 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
 
     // GET ALL REVIEWS FROM THIS USER FOR THIS ALBUM
     React.useEffect(() => {
+        if (!mbid) return;
+
+        // Initial fetch
         fetchLast3Reviews();
+
+        // Refresh when reviews are changed anywhere
+        const handleReviewsChanged = () => {
+            fetchLast3Reviews();
+        };
+
+        window.addEventListener("reviewsChanged", handleReviewsChanged);
+
+        return () => {
+            window.removeEventListener("reviewsChanged", handleReviewsChanged);
+        };
     }, [mbid]);
 
     // KEEP THE LIKES RATES AND REVIEWS TO QUEUES UPDATED TO THE BACKEND

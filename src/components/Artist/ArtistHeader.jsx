@@ -9,7 +9,7 @@ const ArtistHeader = ({ artistImg, imgAlt, artistName, artistBio, artistLabel, a
             <div className="flex flex-col items-center text-center lg:flex-row lg:items-end lg:text-left gap-6 lg:gap-8">
 
                 <img
-                    className="size-40 sm:size-48 lg:size-64 pointer-events-none rounded-3xl ring-1 flex-shrink-0 object-cover"
+                    className="size-40 sm:size-48 lg:size-64 pointer-events-none rounded-3xl ring-1 shrink-0 object-cover"
                     style={{
                         boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
                         borderColor: "rgba(255,255,255,0.08)",

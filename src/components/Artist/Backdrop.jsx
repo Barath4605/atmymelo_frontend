@@ -40,7 +40,7 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                             height: "110%",
                             objectFit: "cover",
                             objectPosition: "center 20%",
-                            transform: `translateY(${scrollY * 0.18}px)`,
+                            transform: `translateY(${scrollY}px)`,
                             willChange: "transform",
                             filter: "brightness(0.75) saturate(1.05)",
                             pointerEvents: "none",
@@ -48,31 +48,13 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                         }}
                     />
 
-                    {/* ── Left fade into page bg ── */}
-                    <div style={{
-                        position: "absolute",
-                        inset: "0 auto 0 0",
-                        width: "18%",
-                        pointerEvents: "none",
-                        background: "linear-gradient(to right, var(--page-bg, #0e0d0d) 0%, transparent 100%)",
-                    }} />
-
-                    {/* ── Right fade into page bg ── */}
-                    <div style={{
-                        position: "absolute",
-                        inset: "0 0 0 auto",
-                        width: "18%",
-                        pointerEvents: "none",
-                        background: "linear-gradient(to left, var(--page-bg, #0e0d0d) 0%, transparent 100%)",
-                    }} />
-
                     {/* ── Top fade ── */}
-                    <div style={{
+                    <div
+                        className={`bg-linear-to-b from-black/75  to-transparent h-[5%] hover:h-[12%]`}
+                        style={{
                         position: "absolute",
                         inset: "0 0 auto 0",
-                        height: "22%",
                         pointerEvents: "none",
-                        background: "linear-gradient(to bottom, var(--page-bg, #0e0d0d) 0%, transparent 100%)",
                     }} />
 
                     {/* ── Bottom fade — the deepest, bleeds into page ── */}
@@ -101,7 +83,6 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                     opacity: loaded ? 1 : 0,
                     transform: loaded ? "translateY(0)" : "translateY(8px)",
                     transition: "opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94)",
-                    transitionDelay: "0.1s",
                     pointerEvents: "none",
                     zIndex: 10,
                 }}
@@ -111,11 +92,12 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                         src={artistLogo}
                         alt={artistName ?? "Artist"}
                         style={{
-                            maxHeight: "clamp(40px, 9vw, 110px)",
-                            maxWidth: "50%",
                             width: "auto",
+                            maxWidth: "90%",
+                            height: "clamp(65px, 18vw, 110px)",
                             objectFit: "contain",
-                            filter: "drop-shadow(0 1px 12px rgba(0,0,0,0.7)) drop-shadow(0 4px 28px rgba(0,0,0,0.4))",
+                            filter:
+                                "drop-shadow(0 1px 12px rgba(0,0,0,0.7)) drop-shadow(0 4px 28px rgba(0,0,0,0.4))",
                         }}
                     />
                 ) : (
