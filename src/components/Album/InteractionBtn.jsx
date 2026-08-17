@@ -115,13 +115,12 @@ const InteractionBtn = ({ mbid, rating: initialRating, favorite, queue }) => {
     // RATING
     const handleRate = async (val) => {
         try {
-            const newVal = rating === val ? 0 : val;
+            const newVal = rating === val ? null : val;
 
             const res = await rateAlbum(mbid, newVal);
             if (!res.ok) throw new Error();
 
             setRating(newVal);
-
         } catch {
             toast.error("Failed to rate");
         }

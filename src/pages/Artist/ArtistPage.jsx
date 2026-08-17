@@ -6,6 +6,7 @@ import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
 import ArtistAlbums from "../Album/ArtistAlbums.jsx";
 import Navbar from "../../components/Navbar.jsx";
 import ErrorPage from "../ErrorPage.jsx";
+import ArtistTopSongs from "../../components/Artist/ArtistTopSongs.jsx";
 
 const ArtistPage = () => {
 
@@ -53,6 +54,7 @@ const ArtistPage = () => {
                   :
                   (
                       <main className="pb-10 min-h-screen">
+
                           <Navbar />
 
                           <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />
@@ -68,6 +70,8 @@ const ArtistPage = () => {
                           />
 
                           <ArtistAlbums artistId={id} />
+
+                          <ArtistTopSongs artistId={artist.id} />
 
                       </main>
                   )

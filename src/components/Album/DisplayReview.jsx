@@ -64,6 +64,7 @@ const DisplayReview = ({
         nav(`/reviews/${reviewId}/liked-by`, {
             state: {
                 username: username,
+                review: review
             }
         });
     };

@@ -32,9 +32,10 @@ const ArtistAlbums = ({ artistId }) => {
     if (albums.length === 0) return null;
 
     return (
-        <section className="lg:w-[70%] w-[90%] mx-auto mt-10">
-            <h2 className="text-white/40 text-sm tracking-widest uppercase mb-4">
-                Albums
+        <section className="lg:w-[70%] w-[90%] mx-auto mt-10 ">
+            <h2 className="text-md montserrat-400 uppercase tracking-[0.2em] mb-4 pb-3 border-b border-zinc-200 dark:border-zinc-800
+                            text-[14px] lg:mb-2 font-medium text-zinc-900 dark:text-zinc-100">
+                Artist Albums
             </h2>
             <div className="grid-cols-2 lg:grid-cols-5 grid overflow-x-auto pb-2 scrollbar-hide">
                 {albums.map((album) => (

@@ -25,14 +25,15 @@ const StarRating = ({ rating }) => {
 
 const DisplayLikes = () => {
     const { reviewId } = useParams();
-    const navigate = useNavigate();
+    const nav = useNavigate();
     const location = useLocation();
 
-    const { username } = location.state || {};
+    const { username, review } = location.state || {};
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [fullReview, setFullReview] = useState(false);
 
     useEffect(() => {
         const loadLikedUsers = async () => {
@@ -73,7 +74,7 @@ const DisplayLikes = () => {
         return (
             <main className="w-[90%] lg:w-[75%] max-w-5xl mx-auto my-12 text-white">
                 <button
-                    onClick={() => navigate(-1)}
+                    onClick={() => nav(-1)}
                     className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm mb-8"
                 >
                     <ArrowLeft size={16} />
@@ -137,6 +138,15 @@ const DisplayLikes = () => {
 
             </section>
 
+
+            {/*DISPLAY THE REVIEW*/}
+            <section className={`lg:w-[85%] w-[95%] m-auto my-5`}>
+                <p className={`montserrat-300 ${fullReview ? "h-fit" : "max-h-15"}  overflow-hidden text-white/80 pl-2 py-0.5 border-l-2 border-gray-400`}>
+                    {review}
+                </p>
+                <p className={`w-fit mx-auto text-white text-2xl p-2 text-center`} onClick={() => setFullReview(!fullReview)}>...</p>
+            </section>
+
             {likedUsers.length === 0 && (
                 <div className="border-t border-white/10 py-14 text-center">
                     <Heart
@@ -161,19 +171,14 @@ const DisplayLikes = () => {
 
                             <div className="flex items-center gap-4 min-w-0">
 
-                                <div className="">
+                                <div className>
 
                                     <p className=" text-sm cursor-pointer w-fit border-b border-white/20 hover:border-white/70UI
                                                   lg:text-white/80 hover:text-white/95
                                                    sm:text-base montserrat-400"
+                                       onClick={() => nav(`/    profile/${user.userId}`)}
                                     >
                                         {user.username}
-                                    </p>
-
-                                    <p className="text-xs text-white/30 mt-1 montserrat-200">
-                                        {user.isFavorite
-                                            ? "Marked as favorite"
-                                            : "Rated this album"}
                                     </p>
 
                                 </div>
@@ -182,16 +187,26 @@ const DisplayLikes = () => {
 
                             <div className="flex items-center gap-5 shrink-0">
 
-                                <div className="hidden sm:block">
-                                    <StarRating rating={user.rating} />
-                                </div>
+                                {user.rating > 0 || user.isFavorite ? (
+                                    user.rating > 0 && (
+                                        <div className="">
+                                            <StarRating rating={user.rating} />
+                                        </div>
+                                    )
+                                ) : (
+                                    <h1 className="lg:text-sm text-xs tracking-widest montserrat-500 text-gray-500">
+                                        No Activity
+                                    </h1>
+                                )}
 
-                                <div className="flex items-center justify-center p-1.5 bg-red-300/20 rounded-full">
-                                    <Heart
-                                        size={14}
-                                        className="fill-red-400 text-red-400"
-                                    />
-                                </div>
+                                {user.isFavorite &&
+                                    <div className="flex items-center justify-center p-1.5 bg-red-300/20 rounded-full">
+                                        <Heart
+                                            size={14}
+                                            className="fill-red-400 text-red-400"
+                                        />
+                                    </div>
+                                }
 
                             </div>
 
