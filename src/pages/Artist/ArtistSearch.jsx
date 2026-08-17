@@ -5,6 +5,8 @@ import {Search} from "lucide-react";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import Navbar from "../../components/Navbar.jsx";
+import { addRecentSearch } from "../../utils/recentSearch.js";
+import RecentSearches from "../../components/RecentSearches.jsx";
 
 const ArtistSearch = () => {
     const [search, setSearch] = useState("");
@@ -79,7 +81,10 @@ const ArtistSearch = () => {
                   {results.map((artist) => (
                       <div
                           key={artist.id}
-                          onClick={() => nav(`${artist.id}`)}
+                          onClick={() => {
+                              addRecentSearch("artists", artist);
+                              window.location.href = `/artists/${artist.id}`;
+                          }}
                           className="cursor-pointer"
                       >
                           {/* image */}
@@ -107,6 +112,7 @@ const ArtistSearch = () => {
                       </div>
                   ))}
               </div>
+                  <RecentSearches type="artists" />
           </section>
       </main>
   );

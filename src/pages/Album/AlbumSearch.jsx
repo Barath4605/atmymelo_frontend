@@ -5,6 +5,8 @@ import { Search } from "lucide-react";
 import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar.jsx";
 import Loading from "../../components/Loading.jsx";
+import { addRecentSearch } from "../../utils/recentSearch.js";
+import RecentSearches from "../../components/RecentSearches.jsx";
 
 const AlbumSearch = () => {
     const [search, setSearch] = useState("");
@@ -83,7 +85,10 @@ const AlbumSearch = () => {
                         <div className="mt-6 grid lg:grid-cols-3 gap-2">
                             {results.map((album, i) => (
                                 <div
-                                    onClick={() => window.location.href = `/albums/${album.id}`}
+                                    onClick={() => {
+                                        addRecentSearch("albums", album);
+                                        window.location.href = `/albums/${album.id}`;
+                                    }}
                                     key={album.id}
                                     className="group relative flex items-center gap-4 px-5 py-4 rounded-2xl cursor-pointer overflow-hidden transition-all duration-500"
                                     style={{
@@ -137,7 +142,9 @@ const AlbumSearch = () => {
                             </span>
                                 </div>
                             ))}
+                            <RecentSearches type="albums" />
                         </div>
+
                     ) : (
                         <Loading />
                     )

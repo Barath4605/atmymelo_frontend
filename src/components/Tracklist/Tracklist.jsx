@@ -80,10 +80,12 @@ const TrackList = ({ mbid}) => {
                 {tracklist.map((track, index) => (
                     <li
                         key={track.strMusicBrainzAlbumID + index}
-                        className={`flex montserrat-400 items-center gap-3 p-2.5 rounded-sm
-                        ${track.idTrack === topTrackId ? `bg-linear-to-bl from-red-400/35 via-red-black/40 to-red-400/55 backdrop-blur-3xl text-black` : `dark:hover:bg-zinc-80 border-b dark:border-zinc-800`}
-                        transition-colors duration-300
-                         last:border-none`}
+                        className={`relative flex montserrat-400 items-center gap-3 p-2.5 rounded-sm overflow-hidden
+                                    ${track.idTrack === topTrackId
+                                                            ? "top-track text-black"
+                                                            : "dark:hover:bg-zinc-800 border-b dark:border-zinc-800"
+                                                        }
+                                    transition-colors duration-300 last:border-none`}
                     >
                         <span className={`w-5 text-right text-xs flex items-start ${track.idTrack === topTrackId ? `text-white` : `text-zinc-400`} shrink-0`}>
                             {index + 1}.

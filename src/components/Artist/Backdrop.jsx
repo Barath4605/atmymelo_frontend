@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
     const [loaded, setLoaded] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
+    const imgRef = useRef(null);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoaded(true), 80);
@@ -10,7 +10,17 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
     }, []);
 
     useEffect(() => {
-        const handleScroll = () => setScrollY(window.scrollY);
+        let ticking = false;
+        const handleScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                if (imgRef.current) {
+                    imgRef.current.style.transform = `translate3d(0, ${window.scrollY}px, 0)`;
+                }
+                ticking = false;
+            });
+        };
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -28,6 +38,7 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                 <>
                     {/* ── Image with parallax ── */}
                     <img
+                        ref={imgRef}
                         src={artistBackdrop}
                         alt=""
                         aria-hidden="true"
@@ -40,9 +51,8 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                             height: "110%",
                             objectFit: "cover",
                             objectPosition: "center 20%",
-                            transform: `translateY(${scrollY}px)`,
+                            transform: "translate3d(0, 0, 0)",
                             willChange: "transform",
-                            filter: "brightness(0.75) saturate(1.05)",
                             pointerEvents: "none",
                             userSelect: "none",
                         }}
@@ -52,10 +62,10 @@ export default function Backdrop({ artistBackdrop, artistLogo, artistName }) {
                     <div
                         className={`bg-linear-to-b from-black/75  to-transparent h-[5%] hover:h-[12%]`}
                         style={{
-                        position: "absolute",
-                        inset: "0 0 auto 0",
-                        pointerEvents: "none",
-                    }} />
+                            position: "absolute",
+                            inset: "0 0 auto 0",
+                            pointerEvents: "none",
+                        }} />
 
                     {/* ── Bottom fade — the deepest, bleeds into page ── */}
                     <div style={{
