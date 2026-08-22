@@ -176,7 +176,6 @@ const DisplayLikes = () => {
                                     <p className=" text-sm cursor-pointer w-fit border-b border-white/20 hover:border-white/70UI
                                                   lg:text-white/80 hover:text-white/95
                                                    sm:text-base montserrat-400"
-                                       onClick={() => nav(`/    profile/${user.userId}`)}
                                     >
                                         {user.username}
                                     </p>

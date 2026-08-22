@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import toast from "react-hot-toast";
 import AlbumBackdrop from "../../components/Album/AlbumBackdrop.jsx";
 import AlbumHeader from "../../components/Album/AlbumHeader.jsx";
 import Navbar from "../../components/Navbar.jsx";
 import ErrorPage from "../ErrorPage.jsx";
 import TrackList from "../../components/Tracklist/Tracklist.jsx";
-import Top3SongsUser from "../../components/Album/Top3SongsUser.jsx";
 import PopularReviews from "../../components/Album/PopularReviews.jsx";
 
 const AlbumPage = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [failed, setFailed] = useState(false);
+
+    const location = useLocation();
+
+    // SCROLL TO THE TRACKLSIT FROM ARTIST POPULAR SONGS SECTION
+    useEffect(() => {
+        if (location.hash === "#tracklist") {
+            const scrollToTracklist = () => {
+                const element = document.getElementById("tracklist");
+
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
+                }
+            };
+
+            setTimeout(scrollToTracklist, 100);
+        }
+    }, [location]);
 
     useEffect(() => {
         const fetchAlbum = async () => {
