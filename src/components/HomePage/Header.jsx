@@ -2,6 +2,7 @@ import React from "react";
 import "../../App.css";
 import { getName, getUsername, isLoggedIn } from "../../auth.js";
 import { useNavigate } from "react-router-dom";
+import Walkthrough from "./WalkthroughImages.jsx";
 
 const Header = () => {
   const nav = useNavigate();
@@ -10,43 +11,46 @@ const Header = () => {
 
   return (
     <>
-      {!isLoggedIn() ? (
-        <header className=" w-[75%] text-center lg:text-left mx-auto cinzel-400 ">
-          {/*TITLE*/}
-          <h1 className="lg:text-8xl text-5xl lg:tracking-[-10px] tracking-[-1px] text-white font-light">
-            At My Melo
-          </h1>
-
-          {/*SUB-TITLE*/}
-          <p className="tracking-wide text-white text-md lg:text-lg">
-            Your personalized Music Diary
-          </p>
-        </header>
-      ) : (
-        <header className=" lg:w-[75%] w-[90%] text-center lg:text-left mx-auto">
-          <h1 className="lg:text-4xl lg:p-1 text-center text-3xl text-white font-light montserrat-200">
-            WELCOME,
-            <span>
-              <button
-                className="lg:border-b-white/70 cursor-pointer pb-1
-                                            hover:border-b-white lg:text-white/75 lg:hover:text-white
-                                            lg:border-b border-b border-white/80 ml-4"
-                onClick={() => nav(`/profile/${username}`)}
-              >
-                {name}
-              </button>
+      <header className={`mx-auto text-center`}>
+        {isLoggedIn() ? (
+          <h1
+            className={`lg:text-4xl text-2xl mt-10 lg:ml-15 montserrat-300 text-white`}
+          >
+            Welcome Back,{" "}
+            <span
+              onClick={() => nav(`profile/${username}`)}
+              className={`text-white/75 cursor-pointer hover:text-white 
+                        transition-all ease-in-out duration-500 border-b border- hover:border-white`}
+            >
+              {name}
             </span>
           </h1>
-          <div className="mt-20 cinzel-400 text-white">
-            <h1 className="text-5xl lg:text-6xl tracking-tighter">
-              At My Melo
-            </h1>
-            <p className="tracking-wide lg:mt-0 text-md">
-              Your personalized Music Diary
-            </p>
+        ) : (
+          <div className="min-h-screen">
+            <section className="min-h-screen flex flex-col items-center justify-center text-center px-5">
+              <h1 className="text-2xl lg:text-4xl poppins-light text-white max-w-3xl">
+                Welcome to AtMyMelo.
+                <br />
+                Log In or Register to get started...
+              </h1>
+
+              <a
+                href={`#walkthrough`}
+                className="mt-16 text-4xl text-white/90 animate-bounce"
+              >
+                ↓
+              </a>
+            </section>
+
+            <section
+              id={`walkthrough`}
+              className="w-full lg:w-[72%] mx-auto px-5 pb-20"
+            >
+              <Walkthrough />
+            </section>
           </div>
-        </header>
-      )}
+        )}
+      </header>
     </>
   );
 };
