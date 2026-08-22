@@ -81,7 +81,7 @@ const ArtistTopSongs = ({ artistId }) => {
                                 animate-pulse
                             "
                         >
-                            <div className="w-[72px] h-[72px] shrink-0 rounded bg-zinc-200 dark:bg-zinc-800" />
+                            <div className="size-18 shrink-0 rounded bg-zinc-200 dark:bg-zinc-800" />
 
                             <div className="flex-1 py-1">
                                 <div className="h-4 w-3/4 rounded bg-zinc-200 dark:bg-zinc-800" />
@@ -126,7 +126,7 @@ const ArtistTopSongs = ({ artistId }) => {
                                         dark:hover:bg-zinc-900
                                         cursor-pointer
                                     "
-                            onClick={() => nav(`/albums/${song.albumId}`)}
+                            onClick={() => nav(`/albums/${song.albumId}#tracklist`)}
                         >
                             {/* Album artwork */}
                             <img

@@ -6,23 +6,51 @@ import { Heart, Trash2, Repeat } from "lucide-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const StarIcon = ({ active }) => (
-    <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        style={{
-            fill: active
-                ? "rgb(251,191,36)"
-                : "rgba(255,255,255,0.15)",
-            filter: active
-                ? "drop-shadow(0 0 3px rgba(251,191,36,0.6))"
-                : "none",
-        }}
-    >
-        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-    </svg>
-);
+const StarIcon = ({ value = 0 }) => {
+    const gradientId = `star-${Math.random().toString(36).slice(2)}`;
+
+    // Clamp value between 0 and 1
+    const fill = Math.max(0, Math.min(1, value));
+
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            aria-hidden="true"
+        >
+            <defs>
+                <linearGradient
+                    id={gradientId}
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                >
+                    <stop
+                        offset={`${fill * 100}%`}
+                        stopColor="rgb(251,191,36)"
+                    />
+                    <stop
+                        offset={`${fill * 100}%`}
+                        stopColor="rgba(255,255,255,0.15)"
+                    />
+                </linearGradient>
+            </defs>
+
+            <polygon
+                points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+                fill={`url(#${gradientId})`}
+                style={{
+                    filter:
+                        fill > 0
+                            ? "drop-shadow(0 0 3px rgba(251,191,36,0.6))"
+                            : "none",
+                }}
+            />
+        </svg>
+    );
+};;
 
 const DisplayReview = ({
                            username,
@@ -151,12 +179,20 @@ const DisplayReview = ({
                         {rating > 0 && (
                             <div className="flex items-center gap-0.5">
 
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                    <StarIcon
-                                        key={star}
-                                        active={star <= rating}
-                                    />
-                                ))}
+                                {[1, 2, 3, 4, 5].map((star) => {
+
+                                    const fill = Math.max(
+                                        0,
+                                        Math.min(1, rating - star + 1)
+                                    );
+
+                                    return (
+                                        <StarIcon
+                                            key={star}
+                                            value={fill}
+                                        />
+                                    );
+                                })}
 
                             </div>
                         )}
