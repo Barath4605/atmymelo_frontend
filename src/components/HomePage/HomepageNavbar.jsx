@@ -1,9 +1,9 @@
 import React from "react";
-import { isLoggedIn } from "../../auth.js";
-import { useNavigate } from "react-router-dom";
+import {isLoggedIn} from "../../auth.js";
+import {useNavigate} from "react-router-dom";
 import "../../App.css";
 import SignUpBtn from "./UserSingupBtn.jsx";
-import { Menu, X } from "lucide-react";
+import {Menu, X} from "lucide-react";
 
 const HomepageNavbar = () => {
   const nav = useNavigate();
@@ -47,14 +47,14 @@ const HomepageNavbar = () => {
   };
 
   return (
-    <nav className="relative flex justify-between py-3 px-5 lg:px-10 w-full items-center bg-zinc-900 border-b-[1.5px] border-zinc-800">
+    <nav className="relative flex justify-between px-5 py-3 w-full items-center bg-zinc-900 border-b-[1.5px] border-zinc-800">
       {/*TITLE*/}
       <h1 className="cursor-default lg:text-5xl cinzel-400 text-3xl lg:tracking-[-5px] tracking-[-1px] text-white font-light">
         At My Melo
       </h1>
 
       {/*LINKS - DESKTOP*/}
-      <div className={`hidden lg:block`}>
+      <div className={`hidden lg:block mr-10`}>
         {links.map((link) => (
           <button
             className={`text-[18px] mx-4 py-0.5 text-white montserrat-300 cursor-pointer

@@ -1,65 +1,118 @@
 import React from "react";
-import {IoStar} from "react-icons/io5";
+import { IoStar } from "react-icons/io5";
 
-import {getUserTrackRating, postUserTrackRating,} from "../../../api/tracklistApi.js";
+import {
+  getUserTrackRating,
+  postUserTrackRating,
+} from "../../../api/tracklistApi.js";
 
 const TrackRating = ({ tadb, topTrackId }) => {
   const [rating, setRating] = React.useState(0);
+  const [hoverRating, setHoverRating] = React.useState(0);
   const [favorite, setFavorite] = React.useState(false);
   const [average, setAverage] = React.useState(0);
 
   const isTopTrack = tadb === topTrackId;
 
-  // get user's existing rating
+  // Get user's existing rating
   React.useEffect(() => {
     async function fetchRating() {
       try {
         const data = await getUserTrackRating(tadb);
+
         setRating(data.userRating ?? 0);
         setAverage(data.avgRating ?? 0);
       } catch (error) {
         console.error(error);
       }
     }
+
     fetchRating();
   }, [tadb]);
 
-  const handleRating = async (star) => {
-    const newRating = star === rating ? 0 : star;
-    setRating(newRating);
+  const handleRating = async (newRating) => {
+    const finalRating = newRating === rating ? 0 : newRating;
+
+    setRating(finalRating);
+
     try {
-      const data = await postUserTrackRating(tadb, newRating, favorite);
+      // Save the new rating
+      await postUserTrackRating(tadb, finalRating, favorite);
+
+      // Fetch the updated average
+      const data = await getUserTrackRating(tadb);
+
       setAverage(data.avgRating ?? 0);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const getRatingFromMouse = (event, star) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const mouseX = event.clientX - rect.left;
+    const half = rect.width / 2;
+
+    return mouseX <= half ? star - 0.5 : star;
+  };
+
+  const activeRating = hoverRating || rating;
+
   return (
     <div className="flex gap-1 text-[17px] mt-1.5 items-center text-white/60">
-      <div className="flex gap-1">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <IoStar
-            key={star}
+      {/* Stars */}
+      <div className="flex gap-1" onMouseLeave={() => setHoverRating(0)}>
+        {[1, 2, 3, 4, 5].map((star) => {
+          const isFull = activeRating >= star;
+          const isHalf = activeRating >= star - 0.5 && activeRating < star;
 
-            onClick={() => handleRating(star)}
+          const starColor = isTopTrack ? "text-yellow-400" : "text-white";
 
-            className={
-              star <= rating
-                ? isTopTrack
-                  ? "fill-yellow-400 text-yellow-400 cursor-pointer"
-                  : "fill-white text-white cursor-pointer"
-                : isTopTrack
-                  ? "text-red-white cursor-pointer"
-                  : "text-white/35 cursor-pointer"
-            }
-          />
-        ))}
+          return (
+            <div
+              key={star}
+              className="relative w-[17px] h-[17px] cursor-pointer"
+              onMouseMove={(event) => {
+                const newRating = getRatingFromMouse(event, star);
+                setHoverRating(newRating);
+              }}
+              onClick={(event) => {
+                const newRating = getRatingFromMouse(event, star);
+                handleRating(newRating);
+              }}
+            >
+              {/* Empty star */}
+              <IoStar className="absolute inset-0 text-white/35" size={17} />
+
+              {/* Full star */}
+              {isFull && (
+                <IoStar className={`absolute inset-0 ${starColor}`} size={17} />
+              )}
+
+              {/* Half star */}
+              {isHalf && (
+                <div className="absolute inset-0 overflow-hidden w-1/2">
+                  <IoStar
+                    className={`absolute left-0 top-0 ${starColor}`}
+                    size={17}
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      <span> | </span>
+      <span>|</span>
 
-      <span className="text-[12px]">{(average ?? 0).toFixed(1)} ★</span>
+      {/* Average */}
+      <span
+        key={average}
+        className="text-[12px] animate-[ratingUpdate_500ms_ease-in-out]"
+      >
+        {(average ?? 0).toFixed(1)} ★
+      </span>
     </div>
   );
 };

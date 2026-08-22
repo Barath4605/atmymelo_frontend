@@ -1,7 +1,7 @@
 import React from "react";
 import "../../App.css";
-import { getName, getUsername, isLoggedIn } from "../../auth.js";
-import { useNavigate } from "react-router-dom";
+import {getName, getUsername, isLoggedIn} from "../../auth.js";
+import {useNavigate} from "react-router-dom";
 import Walkthrough from "./WalkthroughImages.jsx";
 
 const Header = () => {
@@ -14,7 +14,7 @@ const Header = () => {
       <header className={`mx-auto text-center`}>
         {isLoggedIn() ? (
           <h1
-            className={`lg:text-4xl text-2xl mt-10 lg:ml-15 montserrat-300 text-white`}
+            className={`lg:text-4xl text-2xl my-10 montserrat-300 text-white`}
           >
             Welcome Back,{" "}
             <span

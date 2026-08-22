@@ -372,3 +372,15 @@ html {
         background-position: 0% 50%;
     }
 }
+
+@keyframes ratingUpdate {
+    0% {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
