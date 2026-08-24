@@ -3,6 +3,7 @@ import {getAlbumsFromUserTopGenre} from "../../../api/homepageApi.js";
 import SuggestedAlbums from "./SuggestedAlbums.jsx";
 import "../../App.css";
 
+// REMOVED TITLE TO GET DYNAMIC TITLE
 const TopGenreAlbums = ({ onDataLoaded }) => {
   return (
     <SuggestedAlbums
