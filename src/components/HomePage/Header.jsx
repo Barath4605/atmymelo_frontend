@@ -14,7 +14,7 @@ const Header = () => {
       <header className={`mx-auto text-center`}>
         {isLoggedIn() ? (
           <h1
-            className={`lg:text-4xl text-2xl my-10 montserrat-300 text-white`}
+            className={`lg:text-4xl text-2xl my-15 montserrat-300 text-white`}
           >
             Welcome Back,{" "}
             <span

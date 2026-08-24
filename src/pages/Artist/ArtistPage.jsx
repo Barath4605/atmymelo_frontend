@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Backdrop from "../../components/Artist/Backdrop.jsx";
-import toast from "react-hot-toast";
 import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
 import ArtistAlbums from "../Album/ArtistAlbums.jsx";
 import Navbar from "../../components/Navbar.jsx";
@@ -9,75 +8,64 @@ import ErrorPage from "../ErrorPage.jsx";
 import ArtistTopSongs from "../../components/Artist/ArtistTopSongs.jsx";
 
 const ArtistPage = () => {
+  const [artist, setArtist] = useState(null);
+  const [error, setError] = useState(false);
+  const { id } = useParams();
 
-    const [artist, setArtist] = useState(null);
-    const [error, setError] = useState(false);
-    const { id } = useParams();
+  useEffect(() => {
+    const fetchArtist = async () => {
+      try {
+        const API_URL =
+          import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
-    useEffect(() => {
-        const fetchArtist = async () => {
-            const toastId = toast.loading("Loading artist...");
+        const res = await fetch(`${API_URL}/api/artist/${id}`);
+        const data = await res.json();
 
-            try {
-                const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+        if (!res.ok) {
+          setError(true);
+        }
 
-                const res = await fetch(`${API_URL}/api/artist/${id}`);
-                const data = await res.json();
+        setArtist(data);
+      } catch {
+        console.log(error);
+      }
+    };
 
-                if (!res.ok) {
-                    setError(true);
-                }
+    fetchArtist();
+  }, [id]);
 
-                setArtist(data);
-                toast.success("Loaded", { id: toastId });
-
-                console.log(artist.backdropUrl);
-                console.log(artist.logoUrl);
-
-            } catch {
-            }
-        };
-
-        fetchArtist();
-    }, [id]);
-
-    if (!artist) return null;
+  if (!artist) return null;
 
   return (
+    <>
+      {error ? (
+        <ErrorPage msg="Artist is not in our Data Base yet" />
+      ) : (
+        <main className="pb-10 min-h-screen">
+          <Navbar />
 
-      <>
-          {
-              error ?
-                  (
-                      <ErrorPage msg="Artist is not in our Data Base yet" />
-                  )
-                  :
-                  (
-                      <main className="pb-10 min-h-screen">
+          <Backdrop
+            artistBackdrop={artist.backdropUrl}
+            artistName={artist.name}
+            artistLogo={artist.logoUrl}
+          />
 
-                          <Navbar />
+          <ArtistHeader
+            artistImg={artist.photoUrl}
+            imgAlt={artist.name}
+            artistBio={artist.bio}
+            artistBorn={artist.born}
+            artistName={artist.name}
+            artistDebut={artist.formed === null ? "-" : artist.formed}
+            artistLabel={artist.label === null ? "Independent" : artist.label}
+          />
 
-                          <Backdrop artistBackdrop={artist.backdropUrl} artistName={artist.name} artistLogo={artist.logoUrl} />
+          <ArtistAlbums artistId={id} />
 
-
-                          <ArtistHeader artistImg={artist.photoUrl}
-                                        imgAlt={artist.name}
-                                        artistBio={artist.bio}
-                                        artistBorn={artist.born}
-                                        artistName={artist.name}
-                                        artistDebut={artist.formed === null ? "-" : artist.formed}
-                                        artistLabel={artist.label === null ? "Independent" : artist.label}
-                          />
-
-                          <ArtistAlbums artistId={id} />
-
-                          <ArtistTopSongs artistId={artist.id} />
-
-                      </main>
-                  )
-          }
-      </>
-
+          <ArtistTopSongs artistId={artist.id} />
+        </main>
+      )}
+    </>
   );
 };
 

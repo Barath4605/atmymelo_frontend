@@ -92,11 +92,7 @@ const QueuePage = () => {
         )}
 
         {albums.map((album) => (
-          <div
-            key={album.albumId}
-            className="group cursor-pointer"
-            onClick={() => (window.location.href = `/albums/${album.albumId}`)}
-          >
+          <div key={album.albumId} className="group cursor-pointer">
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src={album.imageUrl}
@@ -106,21 +102,30 @@ const QueuePage = () => {
             </div>
 
             <div className="mt-2">
-              <h2 className="text-xl font-medium line-clamp-1">
+              <h2
+                onClick={() =>
+                  (window.location.href = `/albums/${album.albumId}`)
+                }
+                className="text-xl font-medium line-clamp-1"
+              >
                 {album.title}
               </h2>
-              <p className="text-sm text-white line-clamp-1">
-                {album.artist} <span> · {album.releaseDate}</span>
+              <p
+                onClick={() =>
+                  (window.location.href = `/artists/${album.artistId}`)
+                }
+                className="text-sm
+                          transition-all ease-in-out duration-200
+                          w-fit text-white line-clamp-1"
+              >
+                <span
+                  className={`pb-[0.5px] border-b border-white/55 hover:border-white/90`}
+                >
+                  {album.artist}
+                </span>{" "}
+                · <span> {album.releaseDate}</span>
               </p>
             </div>
-
-            {album.rating > 0 && (
-              <div className="flex items-center gap-1 mt-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} active={star <= album.rating} />
-                ))}
-              </div>
-            )}
           </div>
         ))}
       </section>
