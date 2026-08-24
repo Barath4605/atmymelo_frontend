@@ -12,5 +12,4 @@ const TopGenreAlbums = ({ onDataLoaded }) => {
     />
   );
 };
-
 export default TopGenreAlbums;
