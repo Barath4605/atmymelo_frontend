@@ -59,46 +59,41 @@ const AlbumPage = () => {
     const { album, rating, favorite, queue } = data;
 
     return (
-        <>
-            {failed ?
-                (
-                    <ErrorPage msg="This album does not exist in our Data Base yet " />
-                )
-                :
-                (
-                    <main
-                        className="relative min-h-screen pb-16"
-                        style={{ backgroundColor: "#0e0e0e" }}
-                    >
-                        <Navbar />
-                        <AlbumBackdrop
-                            backdrop={album.artist?.backdropUrl}
-                            title={album.title}
-                        />
+      <>
+        {failed ? (
+          <ErrorPage msg="This album does not exist in our Data Base yet " />
+        ) : (
+          <main
+            className="relative min-h-screen pb-16"
+            style={{ backgroundColor: "#0e0e0e" }}
+          >
+            <Navbar />
+            <AlbumBackdrop
+              albumId={id}
+              backdrop={album.artist?.backdropUrl}
+              title={album.title}
+            />
 
-                        <AlbumHeader
-                            albumImg={album.imageUrl}
-                            title={album.title}
-                            artist={album.artist?.name}
-                            year={album.releaseYear}
-                            genre={album.genre}
-                            description={album.description}
-                            rating={rating}
-                            favorite={favorite}
-                            queue={queue}
-                            artistId={album.artist.id}
-                            albumId={id}
-                        />
+            <AlbumHeader
+              albumImg={album.imageUrl}
+              title={album.title}
+              artist={album.artist?.name}
+              year={album.releaseYear}
+              genre={album.genre}
+              description={album.description}
+              rating={rating}
+              favorite={favorite}
+              queue={queue}
+              artistId={album.artist.id}
+              albumId={id}
+            />
 
-                        <TrackList mbid={id} />
+            <TrackList mbid={id} />
 
-                        <PopularReviews title={album.title} mbid={id} />
-
-                    </main>
-
-                )
-            }
-        </>
+            <PopularReviews title={album.title} mbid={id} />
+          </main>
+        )}
+      </>
     );
 };
 

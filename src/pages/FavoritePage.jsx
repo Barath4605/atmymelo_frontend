@@ -1,6 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "../components/Tabs.jsx";
-import {getFavoriteAlbumOnGenre, getUserGenres,} from "../../api/favoriteApi.js";
+import {
+  getFavoriteAlbumOnGenre,
+  getUserGenres,
+} from "../../api/favoriteApi.js";
 import toast from "react-hot-toast";
 import Navbar from "../components/Navbar.jsx";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {getAlbumsFromUserTopGenre} from "../../../api/homepageApi.js";
+import { getAlbumsFromUserTopGenre } from "../../../api/homepageApi.js";
 import SuggestedAlbums from "./SuggestedAlbums.jsx";
 import "../../App.css";
 

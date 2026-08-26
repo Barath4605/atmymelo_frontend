@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import Backdrop from "../../components/Artist/Backdrop.jsx";
 import ArtistHeader from "../../components/Artist/ArtistHeader.jsx";
 import ArtistAlbums from "../Album/ArtistAlbums.jsx";
@@ -45,6 +45,7 @@ const ArtistPage = () => {
           <Navbar />
 
           <Backdrop
+            artistId={artist.id}
             artistBackdrop={artist.backdropUrl}
             artistName={artist.name}
             artistLogo={artist.logoUrl}
